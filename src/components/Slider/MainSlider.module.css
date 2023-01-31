@@ -1,0 +1,84 @@
+.slider {
+  padding-top: var(--header-height);
+}
+
+.slider-caption {
+  position: relative;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.item-obj {
+  position: relative;
+}
+
+.item-obj img {
+  position: relative;
+  width: 100%;
+}
+
+.h-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: visible;
+  text-align: left;
+}
+
+.header_1 {
+  font-family: "Playball", cursive;
+  font-size: 3rem;
+  color: var(--primary);
+  pointer-events: none;
+}
+
+.header_2 {
+  pointer-events: none;
+  font-size: 5rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.header_3 {
+  pointer-events: none;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--green);
+}
+
+.header_4 {
+  pointer-events: none;
+  margin: 18px 0 32px 0;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+}
+
+.header_4 span {
+  color: var(--primary);
+}
+
+@media (max-width: 992px) {
+  .header_1 {
+    font-size: 2.8rem;
+  }
+
+  .header_2 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .h-wrapper {
+    text-align: center;
+  }
+
+  .header_1 {
+    font-size: 3rem;
+  }
+
+  .header_2 {
+    font-size: 4rem;
+  }
+}

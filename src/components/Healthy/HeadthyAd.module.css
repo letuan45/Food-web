@@ -1,0 +1,107 @@
+.headers h1 {
+  font-size: 2.6rem;
+  font-weight: 600;
+}
+
+.headers h2 {
+  font-size: 2.5rem;
+  color: var(--primary);
+  font-family: "Playball", cursive;
+}
+
+.desc {
+  font-size: 1.1rem;
+  color: var(--grey-dark);
+  line-height: 1.4rem;
+  margin: 20px 0 30px 0;
+}
+
+.ad-list {
+  margin-bottom: 20px;
+}
+
+.ad-item {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-item {
+  width: 80px;
+  height: 80px;
+  background-color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.icon-item img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+.ad-item_desc h5 {
+  font-weight: 600;
+}
+
+.ad-item_desc p {
+  line-height: 1.2rem;
+  color: var(--grey-dark);
+  margin-top: 4px;
+}
+
+.shop-btn {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+}
+
+.shop-btn button {
+  width: 50%;
+}
+
+.chillies {
+  position: absolute;
+}
+
+.yellow {
+  top: 10%;
+  left: 12%;
+}
+
+.green {
+  left: 10%;
+  bottom: 10%;
+}
+
+.red {
+  top: 10%;
+  right: 8%;
+}
+
+.cut {
+    bottom: 10%;
+    right: 18%;
+}
+
+@media (max-width: 992px) {
+  .ad-item {
+    justify-content: center;
+  }
+
+  .headers,
+  .desc {
+    text-align: center;
+  }
+
+  .ad-item {
+    justify-content: left;
+  }
+
+  .shop-btn {
+    justify-content: center;
+  }
+}

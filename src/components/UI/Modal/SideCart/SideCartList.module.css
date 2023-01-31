@@ -1,0 +1,22 @@
+.list {
+  height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 0;
+}
+
+.empty {
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 200px;
+  color: var(--grey);
+}
+
+.empty svg {
+  width: 35px;
+  height: 35px;
+  color: var(--grey);
+}

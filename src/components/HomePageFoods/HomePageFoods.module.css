@@ -1,0 +1,77 @@
+.main-wrapper {
+  margin-top: 40px;
+  position: relative;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-header h1 {
+  font-size: 2.6rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.see-more {
+  color: var(--text);
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.see-more span {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  color: white;
+  margin-left: 8px;
+  background-color: var(--green);
+}
+
+.see-more span svg {
+  line-height: 1rem;
+}
+
+.see-more:hover {
+  color: var(--primary);
+}
+
+.see-more:hover span svg {
+  animation: slideToRight 1s linear infinite;
+}
+
+.foods-list {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.parallax-items {
+  position: absolute;
+}
+
+.parallax-item__1 {
+  top: 60%;
+}
+
+.parallax-item__2 {
+  top: 90%;
+  left: 50%;
+  transform: translateX(-50%);  
+}
+
+.parallax-item__3 {
+  right: 0;
+  top: 100%;
+}
+
+@keyframes slideToRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

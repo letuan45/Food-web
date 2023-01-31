@@ -1,0 +1,8 @@
+.btn {
+  color: var(--red);
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  color: var(--text);
+}

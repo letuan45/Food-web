@@ -1,0 +1,75 @@
+.wrapper {
+  background-color: var(--text);
+  position: fixed;
+  width: 100vw;
+  right: 0;
+  height: 100vh;
+  z-index: var(--auth-form-z-index);
+  transform: translateX(101%);
+  transition: all 0.3s;
+  padding: 25px 20px;
+  display: none;
+  top: 0;
+}
+
+.menu-list {
+  margin: 20px;
+  border-bottom: 4px dotted var(--grey-border);
+}
+
+.menu-item {
+  text-align: center;
+  margin: 25px 0;
+}
+
+.menu-item a {
+  font-size: 1.3rem;
+  color: white;
+}
+
+.menu-item a.active {
+  color: var(--primary);
+}
+
+.wrapper.open {
+  transform: translateX(0);
+}
+
+.close {
+  background-color: transparent;
+  border: none;
+}
+
+.close svg {
+  width: 40px;
+  height: 40px;
+  color: white;
+  transition: all 0.2s;
+}
+
+.close:hover svg {
+  color: var(--red);
+}
+
+.menu-item a {
+  position: relative;
+}
+
+.icon {
+    position: absolute;
+    left: -40%;
+    color: var(--primary);
+}
+
+.login-btn {
+  font-size: 1.2rem;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--primary);
+}
+
+@media (max-width: 1200px) {
+  .wrapper {
+    display: block;
+  }
+}

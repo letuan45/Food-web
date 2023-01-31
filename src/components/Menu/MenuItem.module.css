@@ -1,0 +1,46 @@
+.item {
+  padding: 40px 40px 20px 40px;
+  border-radius: 30px;
+  background-color: white;
+}
+
+.header {
+  font-family: "Playball", cursive;
+  font-size: 2rem;
+}
+
+.image {
+  width: 110px;
+  height: 80px;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+}
+
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.ingre {
+  margin-top: 8px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+}

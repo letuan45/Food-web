@@ -1,0 +1,100 @@
+.wrapper {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 360px;
+  max-width: 60%;
+  z-index: var(--auth-form-z-index);
+  transform: translateX(102%);
+  transition: all 0.3s;
+  background-color: white;
+  height: 100vh;
+  box-shadow: -3px 0px 16px -6px rgba(0,0,0,0.75);
+}
+
+.wrapper.open {
+  transform: translateX(0);
+}
+
+.header {
+  background-color: var(--primary-dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: dotted 4px black;
+  padding: 25px 15px;
+}
+
+.header h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.header button {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+.header button::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 18px;
+  background-color: var(--text);
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  right: -16px;
+  transition: all 0.2s ease-in-out;
+}
+
+.header button::before {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 18px;
+  background-color: var(--text);
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+  right: -16px;
+  transition: all 0.2s ease-in-out;
+}
+
+.header button:hover::after,
+.header button:hover::before {
+  transform: translateY(-50%);
+}
+
+.footer {
+  margin-top: 10px;
+  padding: 15px 0;
+  border-top: solid 1px var(--grey-border);
+}
+
+.body-wrapper {
+  height: 100%;
+  padding: 10px 20px;
+}
+
+.total {
+  margin-top: 10px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-group {
+  margin-top: 25px;
+}
+
+.button-group a {
+  display: block;
+}
+
+.button-group a:first-child {
+  margin-bottom: 15px;
+}

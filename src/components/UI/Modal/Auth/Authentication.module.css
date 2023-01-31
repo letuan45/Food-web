@@ -1,0 +1,62 @@
+.auth-wrapper {
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%) translateY(-100%);
+  margin: 0 auto;
+  position: fixed;
+  z-index: var(--auth-form-z-index);
+  background-color: white;
+  min-width: 250px;
+  width: 440px;
+  border-top: solid 5px var(--primary);
+  transition: all 0.5s;
+}
+
+.wrapper {
+  padding: 20px 30px;
+}
+
+.form-header {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.close {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.close svg {
+  width: 40px;
+  height: 40px;
+  transition: all 0.3s;
+}
+
+.close svg:hover {
+  color: var(--red);
+}
+
+.switch {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.switch p {
+  display: inline;
+  text-decoration: overline;
+}
+
+.switch button {
+  display: inline;
+  width: fit-content;
+  padding: 5px;
+  min-width: 10px;
+  margin-left: 10px;
+}
+
+.open {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,19 @@
+.btn {
+  font-size: 1.2rem;
+  border: none;
+  text-transform: uppercase;
+  line-height: normal;
+  padding: 15px;
+  width: 100%;
+  min-width: 80px;
+  color: var(--text);
+  font-weight: 600;
+  background-color: var(--primary);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}

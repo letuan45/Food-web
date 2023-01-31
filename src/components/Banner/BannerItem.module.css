@@ -1,0 +1,51 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.item::before {
+  content: "";
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: var(--primary);
+  z-index: -1;
+  transform: scale(0);
+  transition: all 0.3s;
+}
+
+.item img {
+  height: 75px;
+}
+
+.item img,
+.item .caption {
+  transition: all 0.4s;
+}
+
+.item:hover img {
+  transform: scale(1.2);
+}
+
+.item:hover .caption {
+  color: var(--text);
+}
+
+.item:hover::before {
+  transform: scale(1);
+}
+
+.caption {
+  z-index: 1;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+}

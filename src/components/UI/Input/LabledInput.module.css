@@ -1,0 +1,32 @@
+.wrapper {
+  margin: 15px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.control-label {
+  color: var(--grey);
+}
+
+.control-input {
+  border: 1px solid var(--grey-border);
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: inherit;
+}
+
+.required {
+  font-size: 1.4rem;
+  line-height: 1rem;
+  color: var(--red);
+}
+
+.control-input:focus {
+  outline: 2px solid var(--primary);
+}
+
+.error {
+  color: var(--red);
+}
