@@ -6,7 +6,7 @@
   --grey-border: #e5e5e5;
   --grey-dark: #808080;
   --red: #e63946;
-  --green: #00A149;
+  --green: #00a149;
   --milk-bg: #f7f4ef;
   --menu-z-index: 10;
   --backdrop-z-index: 20;
@@ -143,4 +143,61 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+.fade-bot {
+  animation: fadeInToBot 1s ease-in both;
+}
+
+.fade-right {
+  animation: fadeInToRight 1s ease-in both;
+}
+
+.fade-left {
+  animation: fadeInToLeft 1s ease-in both;
+}
+
+.delay-1 {
+  animation-delay: 0.5s;
+}
+
+.delay-2 {
+  animation-delay: 1s;
+}
+
+.delay-3 {
+  animation-delay: 1.5s;
+}
+
+@keyframes fadeInToBot {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -5%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInToRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInToLeft {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

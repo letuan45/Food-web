@@ -61,6 +61,7 @@
 
 .shop-btn button {
   width: 50%;
+  margin-bottom: 40px;
 }
 
 .chillies {
@@ -103,5 +104,11 @@
 
   .shop-btn {
     justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 0 20px;
   }
 }

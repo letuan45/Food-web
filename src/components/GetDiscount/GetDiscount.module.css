@@ -1,0 +1,61 @@
+.wrapper {
+  padding: 50px 20px;
+  position: relative;
+}
+
+.headers {
+  text-align: center;
+}
+
+.headers h3 {
+  font-size: 2.5rem;
+  color: var(--green);
+  text-align: center;
+  font-family: "Playball", cursive;
+}
+
+.headers h2 {
+  font-size: 2.6rem;
+  font-weight: 600;
+  margin: 10px 0 20px 0;
+}
+
+.headers p {
+  color: var(--grey-dark);
+  font-size: 1.1rem;
+}
+
+.headers span {
+  color: var(--primary);
+}
+
+.input-wrapper {
+    width: 40%;
+    margin: 30px auto;
+}
+
+.wrapper img {
+    position: absolute;
+}
+
+.wrapper img:first-child {
+    left: 4%;
+}
+
+.wrapper img:last-child {
+    top: -8%;
+    right: 0;
+}
+
+@media (max-width: 1300px) {
+    .wrapper img {
+        display: none;
+    }
+}
+
+
+@media (max-width: 768px) {
+  .input-wrapper {
+    width: 100%;
+  }
+}

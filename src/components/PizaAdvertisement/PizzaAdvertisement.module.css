@@ -1,0 +1,133 @@
+.decorators {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.leaf1 {
+  position: relative;
+  left: -20%;
+  top: -6%;
+}
+
+.mushroom {
+  position: relative;
+  top: -98%;
+  right: -90%;
+}
+
+.leaf2 {
+  position: relative;
+  right: -45%;
+  top: -62%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  margin-left: 80px;
+}
+
+.headers h1:first-child {
+  font-size: 5.5rem;
+  font-family: "Playball", cursive;
+  color: white;
+  line-height: 6rem;
+}
+
+.headers h1:nth-child(2) {
+  font-size: 5.5rem;
+  line-height: 5.5rem;
+  font-family: "Playball", cursive;
+  color: white;
+  text-align: right;
+  width: 74%;
+}
+
+.headers h1:last-child {
+  font-size: 14rem;
+  line-height: 5rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.inner {
+  font-size: 1.6rem;
+  color: white;
+  margin-top: 60px;
+  font-weight: 600;
+}
+
+.small-pizza {
+  width: 40%;
+  transform: translateY(-110%) translateX(200%);
+}
+
+.big-pizza {
+  transform: translateY(40%);
+  width: 100%;
+}
+
+.big-pizza-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 1300px) {
+  .small-pizza {
+    transform: translateY(-130%) translateX(200%);
+  }
+
+  .content {
+    margin: 0;
+  }
+}
+
+@media (max-width: 992px) {
+ .big-pizza {
+    width: 50%;
+    top: 60% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    position: relative;
+  }
+
+  .decorators {
+    display: none;
+  }
+
+  .content {
+    text-align: center;
+  }
+
+  .inner {
+    margin-top: 0;
+    margin-bottom: 30px;
+  }
+
+  .headers h1:nth-child(2) {
+    width: 100%;
+    text-align: center;
+  }
+
+  .headers h1:last-child {
+    line-height: 10rem;
+    font-size: 10rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .headers h1:last-child {
+    line-height: 8rem;
+    font-size: 8rem;
+  }
+
+  .inner {
+    padding: 0 20px;
+  }
+}

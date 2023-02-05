@@ -76,7 +76,7 @@
 }
 
 .linker {
-  height: auto;
+  height: fit-content;
 }
 
 .open-m-menu-btn {
@@ -109,6 +109,7 @@
 .menu-wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 @media (max-width: 1200px) {

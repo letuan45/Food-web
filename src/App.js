@@ -3,10 +3,9 @@ import { Route, Routes } from "react-router-dom";
 
 import Layout from "./components/Layout";
 import HomePage from './pages/HomePage';
-
+import Footer from "./components/UI/Footer";
 
 function App() {
-  console.log('Hello word')
 
   return (
     <div className="App">
@@ -15,6 +14,7 @@ function App() {
           <Route path="/" element={<HomePage/>}/>
         </Routes>
       </Layout>
+      <Footer/>
     </div>
   );
 }

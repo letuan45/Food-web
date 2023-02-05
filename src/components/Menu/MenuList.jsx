@@ -134,7 +134,7 @@ const MenuList = () => {
       style={{
         marginTop: "100px",
         backgroundImage: `url(${menuBg})`,
-        padding: "100px 0",
+        padding: "60px 0 100px 0",
       }}
     >
       <Container>

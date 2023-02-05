@@ -1,0 +1,60 @@
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  color: var(--primary);
+  font-family: "Playball", cursive;
+}
+
+.section-header h1 {
+  font-size: 2.6rem;
+  font-weight: 600;
+}
+
+.item-card {
+  padding: 55px 60px;
+  text-align: center;
+  border: 1px solid var(--grey-border);
+  border-radius: 30px;
+  transition: all 0.3s;
+}
+
+.item-card:hover {
+  border-color: var(--primary);
+}
+
+.item-card h5 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 18px 0 12px 0;
+}
+
+.item-card p {
+  color: var(--grey-dark);
+  line-height: 1.8rem;
+}
+
+.icon {
+  margin-top: 10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.icon:hover,
+.icon:hover img {
+  transform: scale(1.1);
+}
+
+.icon img {
+  width: 50%;
+  height: 50%;
+  transition: all 0.3s;
+}

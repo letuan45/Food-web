@@ -1,10 +1,15 @@
+import { useRef } from "react";
+
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
+import { Parallax } from "react-scroll-parallax";
 
 import classes from "./HomePageFoods.module.css";
 import FoodItem from "../FoodItem/Index";
 
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
+
+import { useOnScreen } from "../../hooks/use-on-screen";
 
 //Parallax items
 import decor1 from "../../assets/images/parallax_decors/h_product_1.png";
@@ -52,23 +57,33 @@ const DUMMY_FOODS = [
 
 //Component has maximum 4 items
 const HomePageFoods = () => {
+  const animationRef = useRef(null);
+  const isOnScreen = useOnScreen(animationRef);
+
   return (
     <section className="popular-dishes">
       <div className={classes["main-wrapper"]}>
         <div
           className={`${classes["parallax-items"]} ${classes["parallax-item__1"]}`}
         >
-          <img src={decor1} alt="parallax item 1" />
+          <Parallax translateY={[-100, 100]}>
+            <img src={decor1} alt="parallax item 1" />
+          </Parallax>
         </div>
+
         <div
           className={`${classes["parallax-items"]} ${classes["parallax-item__2"]}`}
         >
-          <img src={decor2} alt="parallax item 2" />
+          <Parallax translateY={[-80, 80]}>
+            <img src={decor2} alt="parallax item 2" />
+          </Parallax>
         </div>
         <div
           className={`${classes["parallax-items"]} ${classes["parallax-item__3"]}`}
         >
-          <img src={decor3} alt="parallax item 3" />
+          <Parallax translateY={[-120, 80]}>
+            <img src={decor3} alt="parallax item 3" />
+          </Parallax>
         </div>
         <Container>
           <div className={classes["section-header"]}>
@@ -82,12 +97,15 @@ const HomePageFoods = () => {
           </div>
           <div className={classes["wrapper"]}>
             <ul
+              ref={animationRef}
               className={`${classes["foods-list"]} row justify-content-center`}
             >
-              {DUMMY_FOODS.map((item) => (
+              {DUMMY_FOODS.map((item, index) => (
                 <FoodItem
                   item={item}
-                  className="col-lg-3 col-md-4"
+                  className={`col-lg-3 col-md-4 ${
+                    isOnScreen ? "fade-bot" : ""
+                  } delay-${index}`}
                   key={item.id}
                 />
               ))}

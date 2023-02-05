@@ -1,0 +1,161 @@
+.header-logo {
+  width: 100%;
+  left: 0;
+  height: 150px;
+  background-image: url(https://demo2.pavothemes.com/poco/wp-content/uploads/2020/09/shape_dot.png);
+  margin-bottom: 8px;
+}
+
+.container-logo {
+  padding: 60px 0 0;
+}
+
+.logo {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+.logo::before {
+  position: absolute;
+  height: 1px;
+  width: 44%;
+  top: 50%;
+  left: 0;
+  z-index: -1;
+  transform: translateY(-50%);
+  background-color: #303030;
+  content: "";
+}
+
+.logo::after {
+  position: absolute;
+  height: 1px;
+  width: 44%;
+  top: 50%;
+  right: 0;
+  z-index: -1;
+  transform: translateY(-50%);
+  background-color: #303030;
+  content: "";
+}
+
+.header-content-item {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.content-item > p {
+  margin-top: 8px;
+  margin-bottom: 5px;
+  text-align: center;
+  color: #b0b0b0;
+}
+
+.addition-item {
+  color: var(--primary);
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+ul.addition-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addition-list_item {
+  margin: 0 5px;
+}
+
+.addition-linker {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: white;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addition-linker:hover {
+  background-color: var(--primary);
+}
+
+.addition-linker svg {
+  width: 0.7em;
+  height: 0.7em;
+  color: black;
+}
+
+.addition-item button {
+  width: 44%;
+  padding: 8px;
+}
+
+.addition-item div {
+  border: 1px solid #303030;
+  border-radius: 4px;
+}
+
+.introduce-item {
+  width: 100%;
+  padding: 20px 0;
+  background-color: #00a850;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.introduce-item_1 {
+  width: 40%;
+  margin-left: 10%;
+}
+
+.introduce-item_2 {
+  width: 40%;
+  text-align: end;
+}
+
+.introduce-img {
+  align-items: center;
+}
+
+.introduce-item_1 > p {
+  color: #fff;
+}
+
+.introduce-item_1 > a {
+  color: var(--primary);
+}
+
+.linker-home {
+  color: var(--primary);
+}
+
+.linker-home:hover {
+    color: var(--text)
+}
+
+@media only screen and (max-width: 768px) {
+    .introduce-item{
+        display: block;
+        height: 100%;
+    }
+    .introduce-item_1{
+        width: 100%;
+        margin-left: 0;
+        text-align: center;
+    }
+    .introduce-item_2{
+        margin-top: 30px;
+        width: 100%;
+        text-align: center;
+    }
+  }

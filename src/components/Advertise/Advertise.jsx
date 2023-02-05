@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -18,13 +20,27 @@ import pizza from "../../assets/icons/pizza.png";
 
 import SmallButton from "../UI/Button/SmallButton";
 
+import { useOnScreen } from "../../hooks/use-on-screen";
+
 const Advertise = () => {
+  const firstElementRef = useRef(null);
+  const isOnScreen1 = useOnScreen(firstElementRef);
+
+  const secondElementRef = useRef(null);
+  const isOnScreen2 = useOnScreen(firstElementRef);
+
   return (
     <section className="Adversisement" style={{ padding: "40px 0" }}>
       <Container fluid="lg">
         <div className={classes["ad-img"]}>
           <Row>
-            <Col md={5} className={classes.col}>
+            <Col
+              md={5}
+              className={`${classes.col} ${
+                isOnScreen1 ? "fade-bot" : ""
+              }`}
+              ref={firstElementRef}
+            >
               <div className={classes["ad-img__item"]}>
                 <img src={firstBg} alt="first-ad" />
                 <div className={`${classes.content} ${classes["content-1"]}`}>
@@ -37,7 +53,12 @@ const Advertise = () => {
                 </div>
               </div>
             </Col>
-            <Col md={4} className={classes.col}>
+            <Col
+              md={4}
+              className={`${classes.col} ${
+                isOnScreen1 ? "fade-bot" : ""
+              } delay-1`}
+            >
               <Row className="flex-column h-100 flex-nowrap">
                 <Col md={12} className={classes["middle-item"]}>
                   <div className={classes["ad-img__item"]}>
@@ -71,7 +92,12 @@ const Advertise = () => {
                 </Col>
               </Row>
             </Col>
-            <Col md={3} className={classes.col}>
+            <Col
+              md={3}
+              className={`${classes.col} ${
+                isOnScreen1 ? "fade-bot" : ""
+              } delay-2`}
+            >
               <div className={classes["ad-img__item"]}>
                 <img src={thirdBg} alt="third-ad" />
                 <div className={`${classes.content} ${classes["content-4"]}`}>
@@ -88,7 +114,15 @@ const Advertise = () => {
         </div>
         <div className={classes["ad-block"]}>
           <Row className="justify-content-center">
-            <Col lg={4} md={6} style={{ padding: "12px" }}>
+            <Col
+              lg={4}
+              md={6}
+              style={{ padding: "12px" }}
+              ref={secondElementRef}
+              className={`${classes.col} ${
+                isOnScreen2 ? "fade-right" : ""
+              }`}
+            >
               <div className={classes["ad-block__item"]}>
                 <div className={classes["img-wrapper"]}>
                   <img src={scooter} alt="scooter" />
@@ -99,7 +133,14 @@ const Advertise = () => {
                 </div>
               </div>
             </Col>
-            <Col lg={4} md={6} style={{ padding: "12px" }}>
+            <Col
+              lg={4}
+              md={6}
+              style={{ padding: "12px"}}
+              className={`${classes.col} ${
+                isOnScreen2 ? "fade-right" : ""
+              } delay-1`}
+            >
               <div className={classes["ad-block__item"]}>
                 <div className={classes["img-wrapper"]}>
                   <img src={clock} alt="clock" />
@@ -110,7 +151,14 @@ const Advertise = () => {
                 </div>
               </div>
             </Col>
-            <Col lg={4} md={6} style={{ padding: "12px" }}>
+            <Col
+              lg={4}
+              md={6}
+              style={{ padding: "12px", animationDelay: "1s" }}
+              className={`${classes.col} ${
+                isOnScreen2 ? "fade-right" : ""
+              } delay-2`}
+            >
               <div className={classes["ad-block__item"]}>
                 <div className={classes["img-wrapper"]}>
                   <img src={pizza} alt="pizza" />

@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -16,12 +18,17 @@ import cutChilli from "../../assets/images/parallax_decors/h_healthy_cut_chilli.
 import Button from "../../components/UI/Button";
 import { Link } from "react-router-dom";
 
+import { useOnScreen } from "../../hooks/use-on-screen";
+
 const HealthyAd = () => {
+  const elementRef = useRef(null);
+  const isOnScreen = useOnScreen(elementRef);
+
   return (
     <section className="healthy" style={{ margin: "100px 0" }}>
-      <Container>
-        <Row className="align-items-center">
-          <Col lg={4}>
+      <Container className={classes.container}>
+        <Row className="align-items-center" ref={elementRef}>
+          <Col lg={4} className={`${isOnScreen ? "fade-right" : ""}`}>
             <div className={classes.headers}>
               <h2>Luôn luôn chất lượng</h2>
               <h1>
@@ -57,7 +64,11 @@ const HealthyAd = () => {
               <Button>Ghé menu</Button>
             </Link>
           </Col>
-          <Col lg={8} style={{position: "relative"}}>
+          <Col
+            lg={8}
+            style={{ position: "relative" }}
+            className={`${isOnScreen ? "fade-left" : ""}`}
+          >
             <img
               src={vegetable}
               alt="tô rau củ"
