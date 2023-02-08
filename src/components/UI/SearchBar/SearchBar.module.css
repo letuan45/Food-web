@@ -1,0 +1,23 @@
+.control-form {
+  border: 1px solid var(--primary);
+  border-radius: 50px;
+  display: flex;
+}
+
+.control-form input {
+  padding: 22.5px;
+  border: 0;
+  border-radius: 50px;
+  width: 80%;
+}
+
+.control-form input:focus {
+  outline: none;
+}
+
+.control-form button {
+  width: 20%;
+  border-radius: 50px;
+  border: none;
+  background-color: transparent;
+}

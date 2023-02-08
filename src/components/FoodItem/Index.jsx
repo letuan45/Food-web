@@ -11,11 +11,12 @@ const Index = (props) => {
   const { item, className } = props;
   const itemId = item.id;
   const price = Number(item.price).toLocaleString("en");
+  const link = `/product/${itemId}`;
 
   return (
-    <li className={className} style={{padding: "12px"}}>
+    <li className={className} style={{ padding: "12px" }}>
       <div className={classes.item}>
-        <Link to={`shop/${itemId}`} className={classes["image-link"]}>
+        <Link to={link} className={classes["image-link"]}>
           <div className={classes.image}>
             <img src={item.image} alt={`product ${item.name}`} />
           </div>
@@ -27,13 +28,16 @@ const Index = (props) => {
           <div className={classes.rating}>
             <RatingStars rating={item.rating} />
           </div>
-          <Link to={`shop/${itemId}`} className={classes.name}>
+          <Link to={link} className={classes.name}>
             {item.name}
           </Link>
           <p className={classes.description}>{item.description}</p>
           <div className="d-flex align-items-center justify-content-between">
             <span className={classes.price}>{price} VND</span>
-            <Link to={`add-to-cart/${itemId}`} className={classes['to-cart-btn']}>
+            <Link
+              to={`add-to-cart/${itemId}`}
+              className={classes["to-cart-btn"]}
+            >
               <ShoppingBasketIcon></ShoppingBasketIcon>
             </Link>
           </div>

@@ -8,6 +8,7 @@
   --red: #e63946;
   --green: #00a149;
   --milk-bg: #f7f4ef;
+  --fade-yellow: #fbf7e8;
   --menu-z-index: 10;
   --backdrop-z-index: 20;
   --auth-form-z-index: 21;
@@ -200,4 +201,17 @@ table {
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+.MuiPagination-ul {
+  justify-content: center;
+}
+
+.MuiPagination-ul li .Mui-selected {
+  background-color: var(--primary);
+}
+
+.MuiPagination-ul li:hover a{
+  color: var(--primary);
+
 }

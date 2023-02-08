@@ -75,7 +75,7 @@ const sliderItems = [
 
 const MainSlider = () => {
   return (
-    <section className={`${classes.slider} big-slider`}>
+    <section className="big-slider">
       <Carousel fade pause={false} interval={5000}>
         {sliderItems.map((item) => (
           <Carousel.Item

@@ -1,7 +1,3 @@
-.slider {
-  padding-top: var(--header-height);
-}
-
 .slider-caption {
   position: relative;
   display: block;

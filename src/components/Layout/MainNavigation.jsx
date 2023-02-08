@@ -106,10 +106,10 @@ const MainNavigation = () => {
               </li>
               <li className={classes["menu-item"]}>
                 <NavLink
-                  to="/book-table"
+                  to="/cart"
                   className={(props) => (props.isActive ? classes.active : "")}
                 >
-                  Đặt bàn
+                  Giỏ hàng
                 </NavLink>
               </li>
               <li className={classes["menu-item"]}>

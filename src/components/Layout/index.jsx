@@ -4,8 +4,10 @@ import MainNavigation from "./MainNavigation";
 const index = (props) => {
   return (
     <React.Fragment>
-      <MainNavigation/>
-      <main>{props.children}</main>
+      <MainNavigation />
+      <main style={{ paddingTop: "var(--header-height)" }}>
+        {props.children}
+      </main>
     </React.Fragment>
   );
 };
