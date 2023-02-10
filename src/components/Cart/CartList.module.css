@@ -1,0 +1,12 @@
+.grand-total {
+    font-size: 1.8rem;
+    font-weight: bold;
+    border-top: 2px dashed var(--grey-dark);
+    width: 100%;
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+.grand-total span {
+    color: var(--primary-dark);
+}

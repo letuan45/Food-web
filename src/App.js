@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import Footer from "./components/UI/Footer";
 import ShopPage from "./pages/ShopPage";
 import Register from "./pages/Register";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/shop?page=:id" element={<ShopPage />} />
+          <Route path="/cart" element={<CartPage />} />
         </Routes>
       </Layout>
       <Footer />

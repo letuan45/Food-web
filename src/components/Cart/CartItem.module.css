@@ -1,0 +1,145 @@
+.item {
+  display: flex;
+  padding: 5px;
+  margin: 15px 0;
+  border-radius: 34px;
+  border: 1px solid var(--grey-border);
+}
+
+.item-image {
+  display: block;
+  width: 150px;
+  height: 150px;
+  border-radius: inherit;
+  min-width: 150px;
+  min-height: 150px;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  background-color: var(--fade-yellow);
+  border-radius: inherit;
+}
+
+.desc {
+  margin-left: 12px;
+  display: flex;
+  padding: 12px 20px;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.item-desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.total {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.total span {
+  color: var(--primary-dark);
+}
+
+.desc a {
+  display: block;
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+.desc a:hover {
+  color: var(--primary);
+}
+
+.desc a {
+  font-size: 1.6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-control a svg {
+  width: 28px;
+  height: 28px;
+}
+
+.quantity-control a:first-child {
+  color: var(--green);
+}
+
+.quantity-control input {
+  display: block;
+  border-radius: 8px;
+  padding: 5px 10px;
+  width: 80px;
+  border: none;
+  background-color: var(--fade-yellow);
+  border: 1px solid var(--grey-border);
+}
+
+.quantity-control input:focus {
+  outline: none;
+}
+
+.quantity-control input::-webkit-inner-spin-button,
+.quantity-control input::-webkit-inner-spin-button {
+  appearance: none;
+}
+
+.quantity-control a:last-child {
+  color: var(--red);
+}
+
+.remove {
+  display: block;
+  min-width: 30px;
+}
+
+.remove svg {
+  color: var(--red);
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 768px) {
+  .desc a {
+    font-size: 1.2rem;
+  }
+
+  .price,
+  .total {
+    font-size: 1rem;
+  }
+
+  .desc {
+    padding-left: 0;
+    padding-right: 5px;
+  }
+
+  .item-image {
+    display: block;
+    width: 120px;
+    height: 120px;
+    border-radius: inherit;
+    min-width: 120px;
+    min-height: 120px;
+  }
+}
