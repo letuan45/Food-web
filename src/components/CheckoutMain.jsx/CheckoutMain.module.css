@@ -1,0 +1,35 @@
+.notification {
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--grey-dark);
+}
+
+.header {
+  font-size: 1.4rem;
+  margin: 10px 0;
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.info-item {
+  font-size: 1.1rem;
+  line-height: 1.2rem;
+  font-weight: 600;
+}
+
+.info-item span {
+  font-weight: normal;
+}
+
+.inner-header {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.button-group a,
+.button-group button {
+  display: block;
+  margin: 20px 0;
+  width: 350px;
+}

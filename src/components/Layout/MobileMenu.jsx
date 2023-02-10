@@ -51,7 +51,7 @@ const Element = (props) => {
         </li>
         <li className={classes["menu-item"]}>
           <NavLink
-            to="/check-out"
+            to="/checkout"
             className={(props) => (props.isActive ? classes.active : "")}
           >
             Thanh toán

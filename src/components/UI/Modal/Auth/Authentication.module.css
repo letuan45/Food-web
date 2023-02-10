@@ -60,3 +60,9 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+@media (max-width: 576px) {
+  .auth-wrapper {
+    width: 100%;
+  }
+}

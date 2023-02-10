@@ -212,11 +212,13 @@ const ShopPageMain = () => {
                     <TuneIcon />
                     Danh mục
                   </button>
-                  Hiển thị
-                  <span> 1-12 </span>
-                  Trên
-                  <span> 54 </span>
-                  Kết quả
+                  <div className={classes["cate-length"]}>
+                    Hiển thị
+                    <span> 1-12 </span>
+                    Trên
+                    <span> 54 </span>
+                    Kết quả
+                  </div>
                 </div>
                 <div className={classes["sort-wrapper"]}>
                   <form className={classes["sort-form"]} method="get">

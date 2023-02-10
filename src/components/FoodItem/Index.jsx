@@ -6,6 +6,7 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
 import classes from "./Index.module.css";
 import RatingStars from "../UI/RatingStars/Index";
+// import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 const Index = (props) => {
   const { item, className } = props;
@@ -38,6 +39,18 @@ const Index = (props) => {
               to={`add-to-cart/${itemId}`}
               className={classes["to-cart-btn"]}
             >
+              {/* <div
+                style={{
+                  width: "50%",
+                  height: "50%",
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                <LoadingSpinner />
+              </div> */}
               <ShoppingBasketIcon></ShoppingBasketIcon>
             </Link>
           </div>

@@ -213,5 +213,10 @@ table {
 
 .MuiPagination-ul li:hover a{
   color: var(--primary);
+}
 
+.MuiAlert-filled {
+  position: fixed;
+  top: 100px;
+  right: 50px;
 }

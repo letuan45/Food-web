@@ -81,7 +81,7 @@ const index = (props) => {
                   <div>{totalPrice} Đ</div>
                 </div>
                 <div className={classes["button-group"]}>
-                  <NavLink to="/check-out">
+                  <NavLink to="/checkout">
                     <Button>Thanh toán</Button>
                   </NavLink>
                   <NavLink to="/cart">

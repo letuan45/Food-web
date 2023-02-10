@@ -197,3 +197,10 @@ p.product-list svg {
     transform: translateX(0);
   }
 }
+
+@media (max-width: 786px) {
+  .cate-length {
+    display: none;
+  }
+
+}

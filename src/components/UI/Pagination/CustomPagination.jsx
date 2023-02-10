@@ -1,10 +1,12 @@
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 
 const CustomPagination = (props) => {
-  const page = 1;
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const page = parseInt(query.get("page") || "1", 10);
 
   return (
     <Pagination
