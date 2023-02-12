@@ -44,6 +44,15 @@ const index = (props) => {
     ];
   }
 
+  if (props.wishListBreadcrumbs) {
+    breadcrumbs = [
+      {
+        title: "Yêu thích",
+        link: "/wish-list",
+      },
+    ];
+  }
+
   if (props.breadcrumbAddition) {
     breadcrumbs.push(props.breadcrumbAddition);
   }

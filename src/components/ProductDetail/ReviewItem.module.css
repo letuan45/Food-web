@@ -1,0 +1,42 @@
+.item {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.user-img {
+  width: 60px;
+  border-radius: 50%;
+  height: 60px;
+}
+
+.content-wrapper {
+  margin-left: 20px;
+}
+
+.name-and-date {
+  display: flex;
+  margin: 4px 0 10px 0;
+  align-items: center;
+}
+
+.name-and-date p {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.date {
+  line-height: 16px;
+  margin-left: 10px;
+  color: var(--grey-dark);
+  display: flex;
+}
+
+.date svg {
+  width: 16px;
+  height: 16px;
+}
+
+.comment {
+  line-height: 1.6rem;
+  color: var(--grey-dark);
+}
