@@ -17,6 +17,7 @@
   import AddIcon from "@mui/icons-material/Add";
   import RemoveIcon from "@mui/icons-material/Remove";
   import ReviewItem from "./ReviewItem";
+import ReviewForm from "./ReviewForm";
 
   const productItem = {
     id: 1,
@@ -225,7 +226,9 @@
                   <Col md={6} style={{ padding: "10px 30px" }}>
                     {reviewList}
                   </Col>
-                  <Col md={6} style={{ padding: "10px 30px" }}></Col>
+                  <Col md={6} style={{ padding: "10px 30px" }}>
+                    <ReviewForm/>
+                  </Col>
                 </Row>
               )}
             </div>

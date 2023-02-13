@@ -4,7 +4,9 @@ import classes from "./TextArea.module.css";
 const TextArea = React.forwardRef((props, ref) => {
   return (
     <React.Fragment>
-      <label className={classes['control-label']} htmlFor={props.name}>{props.label} {props.isRequired ? "*" : ""}</label>
+      <label className={classes["control-label"]} htmlFor={props.name}>
+        {props.label} <span>{props.isRequired ? "*" : ""}</span>
+      </label>
       <textarea
         ref={ref}
         id={props.name}

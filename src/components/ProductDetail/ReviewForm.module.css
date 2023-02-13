@@ -1,0 +1,26 @@
+.comment label {
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.rating-label {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.rating-label span {
+  color: var(--red);
+}
+
+.form-warn {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  font-style: italic;
+  color: var(--grey);
+}
+
+.form-warn span {
+  color: var(--red);
+}
