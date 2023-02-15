@@ -8,52 +8,76 @@ import { Fragment } from "react";
 import classes from "./Authentication.module.css";
 import LabledInput from "../../Input/LabledInput";
 import Button from "../../Button/index";
+import useAxiosFunction from "../../../../hooks/useAxiosFunction";
+import axios from "../../../../utils/axiosInstance";
 
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 
 const validateLogin = (values) => {
   const errors = {};
 
-  if (!values.email || values.email.trim().length === 0) {
-    errors.email = "Xin hãy nhập email !";
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = "Email không hợp lệ !";
+  if (!values.username || values.username.trim().length === 0) {
+    errors.username = "Xin hãy nhập username !";
+  } else if (!/^[a-z0-9]+$/.test(values.username)) {
+    errors.username = "Username không hợp lệ !";
   }
 
   if (!values.password || values.password.trim().length === 0) {
     errors.password = "Xin hãy nhập mật khẩu !";
-  } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password)) {
-    errors.password = "Mật khẩu không hợp lệ !";
   }
+  // } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password)) {
+  //   errors.password = "Mật khẩu không hợp lệ !";
+  // }
 
   return errors;
 };
 
+const loginURL = "/account/login";
+
 const LoginForm = (props) => {
+  const {
+    response: loginResponse,
+    isLoading: loginIsLoading,
+    error: loginHasError,
+    axiosFetch: loginAction,
+  } = useAxiosFunction(false);
+
   const formikLogin = useFormik({
     initialValues: {
-      email: "",
+      username: "",
       password: "",
     },
     validate: validateLogin,
     onSubmit: (values, { resetForm }) => {
+      //Sự kiện submit đăng nhập
+      loginAction({
+        axiosInstance: axios,
+        method: "POST",
+        url: loginURL,
+        requestConfig: {
+          data: values,
+        },
+      });
+
+      console.log(loginResponse);
+
       resetForm();
     },
   });
 
   return (
-    <form onSubmit={formikLogin.onSubmit}>
+    <form onSubmit={formikLogin.handleSubmit}>
       <LabledInput
-        name="email"
-        label="Email"
-        placeholder="Nhập Email"
+        name="username"
+        label="Username"
+        placeholder="Nhập tên tài khoản"
         required={true}
-        value={formikLogin.values.email}
+        value={formikLogin.values.username}
         onChange={formikLogin.handleChange}
         onBlur={formikLogin.handleBlur}
         error={
-          formikLogin.touched.email && formikLogin.errors.email
-            ? formikLogin.errors.email
+          formikLogin.touched.username && formikLogin.errors.username
+            ? formikLogin.errors.username
             : null
         }
       />
