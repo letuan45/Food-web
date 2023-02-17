@@ -1,17 +1,21 @@
 import { useFormik } from "formik";
-
+import { useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { NavLink } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { Fragment } from "react";
+import { useDispatch } from "react-redux";
 
+import { toastAction } from "../../../../store/index";
 import classes from "./Authentication.module.css";
 import LabledInput from "../../Input/LabledInput";
 import Button from "../../Button/index";
 import useAxiosFunction from "../../../../hooks/useAxiosFunction";
-import axios from "../../../../utils/axiosInstance";
+import httpClient from "../../../../utils/axiosInstance";
+import useAuth from "../../../../hooks/use-auth";
 
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
 
 const validateLogin = (values) => {
   const errors = {};
@@ -35,12 +39,16 @@ const validateLogin = (values) => {
 const loginURL = "/account/login";
 
 const LoginForm = (props) => {
+  const dispatch = useDispatch();
+  const {loginHandler} = useAuth();
+  const {onClose} = props;
+
   const {
     response: loginResponse,
     isLoading: loginIsLoading,
-    error: loginHasError,
+    error: loginError,
     axiosFetch: loginAction,
-  } = useAxiosFunction(false);
+  } = useAxiosFunction();
 
   const formikLogin = useFormik({
     initialValues: {
@@ -51,7 +59,7 @@ const LoginForm = (props) => {
     onSubmit: (values, { resetForm }) => {
       //Sự kiện submit đăng nhập
       loginAction({
-        axiosInstance: axios,
+        axiosInstance: httpClient,
         method: "POST",
         url: loginURL,
         requestConfig: {
@@ -59,11 +67,37 @@ const LoginForm = (props) => {
         },
       });
 
-      console.log(loginResponse);
-
       resetForm();
     },
   });
+
+  //Kiểm tra state loginResponse hoặc error
+  useEffect(() => {
+    if (loginResponse) {
+      dispatch(
+        toastAction.showToast({
+          message: loginResponse.message,
+          type: "success",
+        })
+      );
+
+      const { userInfo: user, expireTime } = loginResponse;
+      //Tính thời gian expired
+      const expireTimeData = new Date(new Date().getTime() + expireTime * 1000);
+      loginHandler(loginResponse.token, expireTimeData.toISOString(), { ...user });
+      onClose();
+    }
+    if (loginError) {
+      dispatch(
+        toastAction.showToast({
+          message: loginError.message,
+          type: "error",
+        })
+      );
+    }
+
+
+  }, [loginResponse, dispatch, loginError, loginHandler, onClose]);
 
   return (
     <form onSubmit={formikLogin.handleSubmit}>
@@ -104,7 +138,15 @@ const LoginForm = (props) => {
           </Button>
         </NavLink>
       </div>
-      <Button type="submit">Đăng Nhập</Button>
+      <div
+        className={`${classes["submit-btn"]} ${
+          loginIsLoading ? classes.disable : ""
+        }`}
+      >
+        <Button type="submit">
+          {loginIsLoading ? <LoadingSpinner /> : "Đăng nhập"}
+        </Button>
+      </div>
     </form>
   );
 };

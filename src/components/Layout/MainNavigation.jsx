@@ -1,10 +1,10 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import classes from "./MainNavigation.module.css";
-
 import Container from "react-bootstrap/Container";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
+//logos
 import Logo from "../UI/Elements/Logo";
 import scooterIcon from "../../assets/icons/scooter.png";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
@@ -12,20 +12,38 @@ import PersonIcon from "@mui/icons-material/Person";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
+//components & hooks
 import MenuButton from "./MenuButton";
 import Backdrop from "../UI/Modal/Backdrop";
 import Authentication from "../UI/Modal/Auth/Authentication";
 import SideCart from "../UI/Modal/SideCart";
 import MobileMenu from "./MobileMenu";
+import Button from "../UI/Button";
+import useAxiosFunction from "../../hooks/useAxiosFunction";
+import httpClient from "../../utils/axiosInstance";
+import useAuth from "../../hooks/use-auth";
+import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
+import { toastAction } from "../../store";
 
 const MainNavigation = () => {
+  const dispatch = useDispatch();
   const [authenticationIsOpen, setAuthenticationIsOpen] = useState(false);
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
+  const user = useSelector((state) => state.auth.user);
+  const {
+    response: logoutResponse,
+    isLoading: logoutIsLoading,
+    error: logoutError,
+    axiosFetch: logoutAction,
+  } = useAxiosFunction();
+  const logoutURL = "/account/logout";
+  const { logoutHandler } = useAuth();
 
   // modal actions
   //Auth
   const openAuthHandler = () => {
+    if (user) return;
     if (mobileMenuIsOpen) setMobileMenuIsOpen(false);
     setAuthenticationIsOpen(true);
   };
@@ -57,6 +75,39 @@ const MainNavigation = () => {
     else if (cartIsOpen) setCartIsOpen(false);
     else if (mobileMenuIsOpen) setMobileMenuIsOpen(false);
   };
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+
+    //Gọi API đăng xuất
+    logoutAction({
+      axiosInstance: httpClient,
+      method: "GET",
+      url: logoutURL,
+    });
+
+    //Cập nhật redux State
+    logoutHandler();
+  };
+
+  useEffect(() => {
+    if (logoutResponse) {
+      dispatch(
+        toastAction.showToast({
+          message: logoutResponse.message,
+          type: "success",
+        })
+      );
+    }
+    if (logoutError) {
+      dispatch(
+        toastAction.showToast({
+          message: logoutError.message,
+          type: "error",
+        })
+      );
+    }
+  }, [logoutResponse, logoutError, dispatch]);
 
   return (
     <div className={classes.menu}>
@@ -136,7 +187,41 @@ const MainNavigation = () => {
             </div>
             <div className={`d-flex align-items-center ${classes["mn-btn"]}`}>
               <MenuButton icon={<SearchTwoToneIcon />} />
-              <MenuButton icon={<PersonIcon />} onClick={openAuthHandler} />
+              <div className={classes["auth-btn-group"]}>
+                <MenuButton
+                  icon={<PersonIcon />}
+                  onClick={openAuthHandler}
+                ></MenuButton>
+                {user && (
+                  <div className={classes["user-infor-wrapper"]}>
+                    <ul className={classes["user-infor"]}>
+                      <li className={classes["user-infor__item"]}>
+                        Họ và tên: <span>{user.name}</span>
+                      </li>
+                      <li className={classes["user-infor__item"]}>
+                        Email: <span>{user.email}</span>
+                      </li>
+                      <li className={classes["user-infor__item"]}>
+                        SĐT: <span>{user.phone}</span>
+                      </li>
+                      <li className={classes["user-infor__item"]}>
+                        Địa chỉ: <span>{user.address}</span>
+                      </li>
+                    </ul>
+                    <Link
+                      to="/logout"
+                      className={`${classes["logout-wrapper"]} ${
+                        logoutIsLoading ? classes.disable : ""
+                      }}`}
+                      onClick={handleLogout}
+                    >
+                      <Button>
+                        {logoutIsLoading ? <LoadingSpinner /> : "Đăng xuất"}
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+              </div>
               <NavLink
                 to="/wish-list"
                 className={(props) =>

@@ -1,12 +1,12 @@
 //A Cover of followed by youtuber Dave Gray
 import { useState, useEffect } from "react";
 
-//Hook này dùng cho method GET
+//Hook này dùng cho method Gọi tự động
 const useAxios = (configObj) => {
   const { axiosInstance, method, url, requestConfig = {} } = configObj;
 
   const [response, setResponse] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [reload, setReload] = useState(false);
 
@@ -28,9 +28,9 @@ const useAxios = (configObj) => {
         });
 
         setResponse(res.data);
+        setError(null);
       } catch (err) {
-        console.log(err);
-        setError(err.message);
+        setError(err.response.data);
       } finally {
         setIsLoading(false);
       }
