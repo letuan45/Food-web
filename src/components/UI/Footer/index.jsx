@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import classes from "./index.module.css";
+import classes from "./Index.module.css";
 import logo from "../../../assets/images/logo.png";
 
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
@@ -12,11 +12,17 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 
 import { Link } from "react-router-dom";
 import InputWithButton from "../Input/InputWithButton";
+import { useSelector } from "react-redux";
+import Toast from "../Toast/Toast";
 
-const index = () => {
+const Index = () => {
+  const toastState = useSelector((state) => state.toast);
+
   return (
     <section className="footer" style={{ backgroundColor: "#181818" }}>
-      <div></div>
+      {toastState.isShown ? (
+        <Toast type={toastState.type}>{toastState.message}</Toast>
+      ) : null}
       <div className={classes["header-logo"]}>
         <div className={classes["container-logo"]}>
           <div className={classes.logo}>
@@ -90,7 +96,11 @@ const index = () => {
       <div className={classes["introduce-item"]}>
         <div className={classes["introduce-item_1"]}>
           <p>
-            Copyright © 2022 <Link to="" className={classes["linker-home"]}>Pocofood.</Link> All Rights Reserved.
+            Copyright © 2022{" "}
+            <Link to="" className={classes["linker-home"]}>
+              Pocofood.
+            </Link>{" "}
+            All Rights Reserved.
           </p>
         </div>
         <div className={classes["introduce-item_2"]}>
@@ -105,4 +115,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

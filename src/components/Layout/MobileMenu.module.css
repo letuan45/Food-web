@@ -66,6 +66,42 @@
   padding: 10px;
   border-radius: 10px;
   background-color: var(--primary);
+  border: none;
+}
+
+.login-btn svg {
+  color: white;
+}
+
+.user-info {
+  padding: 10px 20px;
+  margin: 0 auto;
+  width: 60%;
+  background-color: white;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-info p {
+  margin: 5px 0;
+  font-weight: 600;
+  text-align: left;
+  width: 100%;
+}
+
+.user-info p span {
+  font-weight: normal;
+  
+}
+
+.user-info h5 {
+  font-size: 1.2rem;
+  color: var(--primary);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 8px;
 }
 
 @media (max-width: 1200px) {

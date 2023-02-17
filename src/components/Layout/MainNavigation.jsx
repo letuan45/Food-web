@@ -66,9 +66,9 @@ const MainNavigation = () => {
     setMobileMenuIsOpen(true);
   };
 
-  const closeMobileMenuHandler = () => {
+  const closeMobileMenuHandler = useCallback(() => {
     setMobileMenuIsOpen(false);
-  };
+  }, []);
 
   const closeBackdrop = () => {
     if (authenticationIsOpen) setAuthenticationIsOpen(false);
