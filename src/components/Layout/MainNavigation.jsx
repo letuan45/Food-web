@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import classes from "./MainNavigation.module.css";
 import Container from "react-bootstrap/Container";
 import { Link, NavLink } from "react-router-dom";
@@ -48,9 +48,9 @@ const MainNavigation = () => {
     setAuthenticationIsOpen(true);
   };
 
-  const closeAuthHandler = () => {
+  const closeAuthHandler = useCallback(() => {
     setAuthenticationIsOpen(false);
-  };
+  }, []);
 
   //Cart
   const openCartHandler = () => {
