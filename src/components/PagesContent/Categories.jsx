@@ -16,9 +16,38 @@ import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import CloseIcon from "@mui/icons-material/Close";
 
 import FoodItemVertical from "../FoodItem/FoodItemVertical";
+import useAxios from "../../hooks/useAxios";
+import httpClient from "../../utils/axiosInstance";
+import { useParams } from "react-router";
+
+const cateItemIcons = [
+  <LunchDiningIcon />,
+  <LocalBarIcon />,
+  <IcecreamIcon />,
+  <RamenDiningIcon />,
+  <LocalPizzaIcon />,
+  <FastfoodIcon />,
+];
 
 const Content = (props) => {
+  const getTypesURL = "/types";
+  const { idType } = useParams();
+  //Lấy danh sách loại sản phẩm
+  const { response: typesResponse, error: typesError } = useAxios({
+    axiosInstance: httpClient,
+    method: "GET",
+    url: getTypesURL,
+  });
+  const categories = typesResponse ? typesResponse : null;
   const { handleSearch, bestDealContent, isOpened, onClose } = props;
+
+  if (!categories || typesError) {
+    return <p>Không tải được danh mục</p>;
+  }
+
+  const generatedCategories = categories.map((item, index) => {
+    return { item, icon: cateItemIcons[index] };
+  });
 
   return (
     <Col
@@ -31,90 +60,25 @@ const Content = (props) => {
       <div className={classes["cate-wrapper"]}>
         <h4 className={classes["cate-header"]}>Danh mục</h4>
         <ul className={classes["cate-list"]}>
-          <li className={classes["cate-item"]}>
-            <NavLink
-              to="./burgers"
-              className={({ isActive }) => (isActive ? classes.active : "")}
-            >
-              <div className={classes["cate-item-wrapper"]}>
-                <div className={classes["cate-title"]}>
-                  <LunchDiningIcon />
-                  <span>Burgers</span>
+          {generatedCategories.map((cate) => (
+            <li className={classes["cate-item"]} key={cate.item["id_type"]}>
+              <NavLink
+                to={`/items/id_type/${cate.item["id_type"]}`}
+                className={
+                  +idType === cate.item["id_type"] ? classes.active : ""
+                }
+                onClick={props.onChange}
+              >
+                <div className={classes["cate-item-wrapper"]}>
+                  <div className={classes["cate-title"]}>
+                    {cate.icon}
+                    <span>{cate.item.name}</span>
+                  </div>
+                  <div>({cate.item.quantity})</div>
                 </div>
-                <div>(10)</div>
-              </div>
-            </NavLink>
-          </li>
-          <li className={classes["cate-item"]}>
-            <NavLink
-              to="./drinks"
-              className={({ isActive }) => (isActive ? classes.active : "")}
-            >
-              <div className={classes["cate-item-wrapper"]}>
-                <div className={classes["cate-title"]}>
-                  <LocalBarIcon />
-                  <span>Đồ uống</span>
-                </div>
-                <div>(10)</div>
-              </div>
-            </NavLink>
-          </li>
-          <li className={classes["cate-item"]}>
-            <NavLink
-              to="./sweets"
-              className={({ isActive }) => (isActive ? classes.active : "")}
-            >
-              <div className={classes["cate-item-wrapper"]}>
-                <div className={classes["cate-title"]}>
-                  <IcecreamIcon />
-                  <span>Đồ ngọt</span>
-                </div>
-                <div>(10)</div>
-              </div>
-            </NavLink>
-          </li>
-          <li className={classes["cate-item"]}>
-            <NavLink
-              to="./pasta"
-              className={({ isActive }) => (isActive ? classes.active : "")}
-            >
-              <div className={classes["cate-item-wrapper"]}>
-                <div className={classes["cate-title"]}>
-                  <RamenDiningIcon />
-                  <span>Pasta</span>
-                </div>
-                <div>(10)</div>
-              </div>
-            </NavLink>
-          </li>
-          <li className={classes["cate-item"]}>
-            <NavLink
-              to="./pizza"
-              className={({ isActive }) => (isActive ? classes.active : "")}
-            >
-              <div className={classes["cate-item-wrapper"]}>
-                <div className={classes["cate-title"]}>
-                  <LocalPizzaIcon />
-                  <span>Pizza</span>
-                </div>
-                <div>(10)</div>
-              </div>
-            </NavLink>
-          </li>
-          <li className={classes["cate-item"]}>
-            <NavLink
-              to="./other"
-              className={({ isActive }) => (isActive ? classes.active : "")}
-            >
-              <div className={classes["cate-item-wrapper"]}>
-                <div className={classes["cate-title"]}>
-                  <FastfoodIcon />
-                  <span>Khác</span>
-                </div>
-                <div>(10)</div>
-              </div>
-            </NavLink>
-          </li>
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </div>
       <div className={classes["search-wrapper"]}>
@@ -164,7 +128,9 @@ const Categories = (props) => {
           <Content
             handleSearch={handleSearch}
             bestDealContent={bestDealContent}
+            categories={props.categories ? props.categories : null}
             isOpened={isOpened}
+            onChange={props.onChange}
             onClose={onClose}
           ></Content>,
           document.getElementById("overlay-root")
@@ -177,6 +143,7 @@ const Categories = (props) => {
     <Content
       handleSearch={handleSearch}
       bestDealContent={bestDealContent}
+      onChange={props.onChange}
     ></Content>
   );
 };

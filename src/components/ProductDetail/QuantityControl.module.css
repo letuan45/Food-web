@@ -1,0 +1,32 @@
+.quantity-control {
+  display: flex;
+}
+
+.quantity-control button {
+  width: 30px;
+  height: 30px;
+  background-color: #f7f4ef;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  transition: all 0.2s;
+  border: none;
+}
+
+.quantity-control input {
+  height: 50%;
+  width: 45px;
+  font-size: 1.2rem;
+  text-align: center;
+  border: none;
+}
+
+.quantity-control input:focus {
+  outline: none;
+}
+
+.quantity-control a:hover {
+  color: var(--primary);
+}

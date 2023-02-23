@@ -12,117 +12,12 @@ import FoodItem from "../FoodItem/Index";
 import Categories from "./Categories";
 import useViewport from "../../hooks/use-viewport";
 import Backdrop from "../../components/UI/Modal/Backdrop";
-
-const DUMMY_FOODS = [
-  {
-    id: 1,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 5,
-    name: "Tên món ăn Tên món ăn Tên món ăn",
-    description: "Mô tả món ăn Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 2,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 0,
-    name: "Tên món ăn",
-    description: "Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 3,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 3.5,
-    name: "Tên món ăn",
-    description: "Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 4,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 4.5,
-    name: "Tên món ăn",
-    description: "Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 5,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 5,
-    name: "Tên món ăn Tên món ăn Tên món ăn",
-    description: "Mô tả món ăn Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 6,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 0,
-    name: "Tên món ăn",
-    description: "Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 7,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 3.5,
-    name: "Tên món ăn",
-    description: "Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 8,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 4.5,
-    name: "Tên món ăn",
-    description: "Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 9,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 5,
-    name: "Tên món ăn Tên món ăn Tên món ăn",
-    description: "Mô tả món ăn Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 10,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 0,
-    name: "Tên món ăn",
-    description: "Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 11,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 3.5,
-    name: "Tên món ăn",
-    description: "Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 12,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 4.5,
-    name: "Tên món ăn",
-    description: "Mô tả món ăn",
-    price: "60000",
-  },
-];
+import useAxios from "../../hooks/useAxios";
+import httpClient from "../../utils/axiosInstance";
+import LoadingSpinner from "../../components/UI/LoadingSpinner/LoadingSpinner";
+import { useParams } from "react-router";
+import { useNavigate, useLocation } from "react-router-dom";
+import useWishlistTransform from "../../hooks/useWishlistTransform";
 
 const DUMMY_BEST = [
   {
@@ -155,45 +50,118 @@ const DUMMY_BEST = [
 ];
 
 const ShopPageMain = () => {
-  const [orderType, setOrderType] = useState("default");
+  const [orderType, setOrderType] = useState(0);
   const [cateIsOpen, setCateIsOpen] = useState(false);
+  const [resetPaginate, setResetPaginate] = useState(false);
   const { width: deviceWidth } = useViewport();
-
-  const handleChangeType = (newValue) => {
-    setOrderType(() => newValue);
-  };
+  let getItemsURL = "/items";
+  const { pageNum } = useParams();
+  getItemsURL += pageNum ? `/${pageNum}` : "";
+  const { idType } = useParams();
+  const { typeSort } = useParams();
+  let navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (deviceWidth > 1200) setCateIsOpen(false);
   }, [deviceWidth]);
 
-  //Product list
-  let productsContent = (
-    <p className={classes["product-list"]}>
-      <RemoveShoppingCartIcon />
-      Rất tiếc, không có bất kì món nào.
-    </p>
-  );
+  const handleResetOrderType = () => {
+    setOrderType(0);
+  };
 
-  if (DUMMY_FOODS && DUMMY_FOODS.length > 0) {
+  const {
+    response: productsResponse,
+    isLoading: productsIsLoading,
+    error: productsError,
+    refetch: reloadProducts,
+  } = useAxios({
+    axiosInstance: httpClient,
+    method: "GET",
+    url: getItemsURL,
+    requestConfig: {
+      params: {
+        id_type: idType ? idType : "",
+        typesort: typeSort ? typeSort : "",
+      },
+    },
+  });
+
+  useEffect(() => {
+    reloadProducts();
+    if (typeSort) return;
+    //set page bằng 1
+    setResetPaginate(true);
+  }, [idType, reloadProducts, typeSort]);
+
+  let PRODUCTS = productsResponse ? productsResponse.itemList : [];
+  const totalPage = productsResponse ? productsResponse.totalPage : 0; 
+  PRODUCTS = useWishlistTransform(PRODUCTS);
+
+
+  //Product list
+  let productsContent;
+  if (productsIsLoading) {
+    productsContent = (
+      <div className={classes["loading-wrapper"]}>
+        <LoadingSpinner />
+      </div>
+    );
+  } else if (!productsError && PRODUCTS && PRODUCTS.length === 0) {
+    productsContent = (
+      <p className={classes["product-list"]}>
+        <RemoveShoppingCartIcon />
+        Rất tiếc, không có bất kì món nào.
+      </p>
+    );
+  } else if (!productsError && PRODUCTS && PRODUCTS.length > 0) {
     productsContent = (
       <ul className={`${classes["product-list"]} row`}>
-        {DUMMY_FOODS.map((item) => (
-          <FoodItem item={item} key={item.id} className="col-md-6 col-lg-4" />
+        {PRODUCTS.map((item) => (
+          <FoodItem
+            item={item}
+            key={item["id_item"]}
+            className="col-md-6 col-lg-4"
+          />
         ))}
       </ul>
     );
   }
 
-  const paginationLength = 10;
+  const paginationLength = totalPage;
 
   //Events
   const handleOpenCate = () => {
     setCateIsOpen(true);
   };
 
+  const handleChangeType = (newValue) => {
+    setOrderType(() => newValue);
+    if (+newValue === 0) return;
+    let currenPath = location.pathname;
+    let currenPathArr = currenPath.split("/");
+
+    //Tìm kí tự typesort trong path
+    const typeSortCharIdx = currenPathArr.findIndex(
+      (item) => item === "typesort"
+    );
+    //Nếu tìm ra, thay thế giá trị
+    if (typeSortCharIdx >= 0) {
+      currenPathArr[typeSortCharIdx + 1] = newValue;
+      currenPath = currenPathArr.join("/");
+    } else {
+      currenPath += `/typesort/${newValue}`;
+    }
+
+    navigate(currenPath);
+  };
+
   const handleCloseCate = () => {
     setCateIsOpen(false);
+  };
+
+  const handleUnsetResetPaginate = () => {
+    setResetPaginate(false);
   };
 
   return (
@@ -227,10 +195,10 @@ const ShopPageMain = () => {
                       value={orderType}
                       onChange={(event) => handleChangeType(event.target.value)}
                     >
-                      <option value="default">Sắp xếp mặc định</option>
-                      <option value="popularity">Sắp xếp độ phổ biến</option>
-                      <option value="inc_price">Sắp xếp giá tăng dần</option>
-                      <option value="des_price">Sắp xếp giá giảm dần</option>
+                      <option value={0}>Sắp xếp mặc định</option>
+                      <option value={1}>Sắp xếp độ phổ biến</option>
+                      <option value={2}>Sắp xếp giá giảm dần</option>
+                      <option value={3}>Sắp xếp giá tăng dần</option>
                     </select>
                     <ExpandMoreRoundedIcon className={classes.chevron} />
                   </form>
@@ -238,7 +206,12 @@ const ShopPageMain = () => {
               </div>
               {productsContent}
               <div className={classes["pagination-wrapper"]}>
-                <CustomPagination count={paginationLength} />
+                <CustomPagination
+                  resetPaginate={resetPaginate}
+                  unsetResetPaginate={handleUnsetResetPaginate}
+                  count={paginationLength}
+                  type={idType}
+                />
               </div>
             </Col>
             <Categories
@@ -246,6 +219,7 @@ const ShopPageMain = () => {
               isModal={deviceWidth <= 1200}
               isOpened={cateIsOpen}
               onClose={handleCloseCate}
+              onChange={handleResetOrderType}
             />
           </Row>
         </Container>

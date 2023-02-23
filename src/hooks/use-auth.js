@@ -2,6 +2,8 @@ import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { authActions } from "../store";
+import { cartActions } from "../store";
+import { wishListActions } from "../store";
 
 let logoutTimer;
 
@@ -41,6 +43,8 @@ const useAuth = () => {
   //Hàm logout
   const logoutHandler = useCallback(() => {
     dispatch(authActions.logout());
+    dispatch(cartActions.clearCart());
+    dispatch(wishListActions.clearWishList());
 
     if (logoutTimer) {
       clearTimeout(logoutTimer);

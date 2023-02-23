@@ -20,6 +20,8 @@ const Element = (props) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+  const cart = useSelector((state) => state.cart.items);
+  const cartLength = cart ? cart.length : 0;
   const { onClose, isOpen } = props;
   const wrapperClasses = `${isOpen ? classes.open : ""} ${classes.wrapper}`;
   const {
@@ -64,7 +66,7 @@ const Element = (props) => {
     if (logoutError) {
       dispatch(
         toastAction.showToast({
-          message: logoutError.message,
+          message: logoutError.data.message,
           type: "error",
         })
       );
@@ -114,7 +116,7 @@ const Element = (props) => {
           >
             <ShoppingBasketIcon className={classes.icon} />
             Giỏ hàng
-            <span>(5)</span>
+            <span>{user ? `(${cartLength})` : "X"}</span>
           </NavLink>
         </li>
       </Fragment>

@@ -98,3 +98,15 @@
 .button-group a:first-child {
   margin-bottom: 15px;
 }
+
+.not-auth {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 100px;
+  color: var(--grey);
+}
+
+.not-auth svg {
+  width: 50px;
+  height: 50px;
+}

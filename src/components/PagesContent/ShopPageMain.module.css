@@ -198,6 +198,16 @@ p.product-list svg {
   }
 }
 
+.loading-wrapper {
+  width: 100px;
+  height: 100px;
+  margin: 50px auto 0 auto;
+}
+
+.loading-wrapper svg {
+  color: var(--green);
+}
+
 @media (max-width: 786px) {
   .cate-length {
     display: none;

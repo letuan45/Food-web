@@ -1,0 +1,55 @@
+.empty-rv {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--grey-dark);
+}
+
+.description {
+  margin: 80px auto 80px auto;
+}
+
+.tabs-buttons-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tabs-buttons-wrapper button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.8rem;
+  min-width: 200px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  font-weight: 600;
+}
+
+.tabs-buttons-wrapper button:hover {
+  background-color: var(--primary);
+}
+
+.tabs-buttons-wrapper button.button-active {
+  background-color: var(--primary);
+}
+
+.desc-content {
+  line-height: 1.6rem;
+  color: var(--grey-dark);
+  font-size: 1.2rem;
+}
+
+.tabs-content-wrapper {
+  margin-top: 30px;
+}
+
+@media (max-width: 992px) {
+  .detail-wrapper,
+  .tabs-content-wrapper {
+    padding: 0 10px;
+  }
+
+  .tabs-buttons-wrapper button {
+    min-width: 100px;
+  }
+}

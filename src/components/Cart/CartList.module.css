@@ -10,3 +10,10 @@
 .grand-total span {
     color: var(--primary-dark);
 }
+
+.notification {
+    font-size: 1.4rem;
+    margin: 60px auto;
+    width: fit-content;
+    color: var(--grey-dark);
+}

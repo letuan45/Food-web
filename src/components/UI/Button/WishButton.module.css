@@ -1,8 +1,12 @@
 .btn {
-  color: var(--red);
+  color: var(--grey-dark);
   transition: all 0.2s;
 }
 
 .btn:hover {
-  color: var(--text);
+  color: var(--red);
+}
+
+.btn.liked svg{
+  color: var(--red);
 }

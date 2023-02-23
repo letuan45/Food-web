@@ -16,7 +16,7 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import MenuButton from "./MenuButton";
 import Backdrop from "../UI/Modal/Backdrop";
 import Authentication from "../UI/Modal/Auth/Authentication";
-import SideCart from "../UI/Modal/SideCart";
+import SideCart from "../UI/Modal/SideCart/Index";
 import MobileMenu from "./MobileMenu";
 import Button from "../UI/Button";
 import useAxiosFunction from "../../hooks/useAxiosFunction";
@@ -24,23 +24,44 @@ import httpClient from "../../utils/axiosInstance";
 import useAuth from "../../hooks/use-auth";
 import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 import { toastAction } from "../../store";
+import { cartActions } from "../../store";
+import { wishListActions } from "../../store";
+import { useNavigate } from "react-router-dom";
 
 const MainNavigation = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [authenticationIsOpen, setAuthenticationIsOpen] = useState(false);
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
+  const cart = useSelector((state) => state.cart.items);
+  const cartLength = cart ? cart.length : 0;
+  const wishList = useSelector((state) => state.wishList.items);
+  const wishListLength = wishList ? wishList.length : 0;
   const {
     response: logoutResponse,
     isLoading: logoutIsLoading,
     error: logoutError,
     axiosFetch: logoutAction,
   } = useAxiosFunction();
+  const {
+    response: cartResponse,
+    error: cartError,
+    axiosFetch: cartAction,
+  } = useAxiosFunction();
+  const {
+    response: wishListResponse,
+    error: wishListError,
+    axiosFetch: wishListAction,
+  } = useAxiosFunction();
+
   const logoutURL = "/account/logout";
+  const getCartItemsURL = "/cart";
+  const getWishListURL = "/wishlist";
   const { logoutHandler } = useAuth();
 
-  // modal actions
+  //Modal actions
   //Auth
   const openAuthHandler = () => {
     if (user) return;
@@ -90,6 +111,7 @@ const MainNavigation = () => {
     logoutHandler();
   };
 
+  //Nhận logout Response và render toast
   useEffect(() => {
     if (logoutResponse) {
       dispatch(
@@ -98,16 +120,75 @@ const MainNavigation = () => {
           type: "success",
         })
       );
+      navigate("/");
+      window.scrollTo(0,0);
     }
     if (logoutError) {
       dispatch(
         toastAction.showToast({
-          message: logoutError.message,
+          message: logoutError.data.message,
           type: "error",
         })
       );
     }
-  }, [logoutResponse, logoutError, dispatch]);
+    /* eslint-disable-next-line */
+  }, [logoutResponse, logoutError]);
+
+  //Lấy cart
+  useEffect(() => {
+    if (!user) return;
+    cartAction({
+      axiosInstance: httpClient,
+      method: "GET",
+      url: getCartItemsURL,
+    });
+  }, [user, cartAction]);
+
+  //Nhận cart
+  useEffect(() => {
+    if (!user) return;
+    if (cartError) {
+      dispatch(
+        toastAction.showToast({
+          message: cartError.data.message,
+          type: "error",
+        })
+      );
+    }
+
+    if (cartResponse) {
+      dispatch(cartActions.replaceCart({ items: [...cartResponse.itemList] }));
+    }
+  }, [cartResponse, cartError, dispatch, user]);
+
+  //Lấy wishlist
+  useEffect(() => {
+    if (!user) return;
+    wishListAction({
+      axiosInstance: httpClient,
+      method: "GET",
+      url: getWishListURL,
+    });
+  }, [user, wishListAction]);
+
+  //Nhận wishlist
+  useEffect(() => {
+    if (!user) return;
+    if (wishListError) {
+      dispatch(
+        toastAction.showToast({
+          message: wishListError.data.message,
+          type: "error",
+        })
+      );
+    }
+
+    if (wishListResponse) {
+      dispatch(
+        wishListActions.replaceWishList({ items: [...wishListResponse] })
+      );
+    }
+  }, [wishListResponse, wishListError, dispatch, user]);
 
   return (
     <div className={classes.menu}>
@@ -141,7 +222,7 @@ const MainNavigation = () => {
               </li>
               <li className={classes["menu-item"]}>
                 <NavLink
-                  to="/shop"
+                  to="/items"
                   className={(props) => (props.isActive ? classes.active : "")}
                 >
                   Thực đơn
@@ -165,10 +246,10 @@ const MainNavigation = () => {
               </li>
               <li className={classes["menu-item"]}>
                 <NavLink
-                  to="/contact"
+                  to="/orders"
                   className={(props) => (props.isActive ? classes.active : "")}
                 >
-                  Liên lạc
+                  Đơn hàng
                 </NavLink>
               </li>
             </ul>
@@ -228,11 +309,14 @@ const MainNavigation = () => {
                   props.isActive ? classes["btn-active"] : ""
                 }
               >
-                <MenuButton icon={<FavoriteIcon />} quantity={10} />
+                <MenuButton
+                  icon={<FavoriteIcon />}
+                  quantity={user ? wishListLength : "X"}
+                />
               </NavLink>
               <MenuButton
                 icon={<ShoppingBasketIcon />}
-                quantity={5}
+                quantity={user ? cartLength : "X"}
                 onClick={openCartHandler}
               />
             </div>

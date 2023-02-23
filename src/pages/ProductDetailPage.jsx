@@ -1,12 +1,15 @@
 import BreadCrumbs from "../components/UI/BreadCrumbs";
 import background from "../assets/images/backgrounds/breadcrumb.jpg";
 import ProductDetail from "../components/ProductDetail/ProductDetail";
+import { useState } from "react";
+import { useCallback } from "react";
 
 const ProductDetailPage = () => {
-  const breadcrumbAddition = {
-    title: "Tên sản phẩm",
-    link: "/product/1",
-  };
+  const [breadcrumbAddition, setbreadcrumbAddition] = useState({})
+
+  const handleChangeBreadcrumb = useCallback((value) => {
+    setbreadcrumbAddition(value);
+  }, [])
 
   return (
     <div>
@@ -14,7 +17,7 @@ const ProductDetailPage = () => {
         background={background}
         breadcrumbAddition={breadcrumbAddition}
       />
-      <ProductDetail/>
+      <ProductDetail onChangeBreadcrumb={handleChangeBreadcrumb}/>
     </div>
   );
 };

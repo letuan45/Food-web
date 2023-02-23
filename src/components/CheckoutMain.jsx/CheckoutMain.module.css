@@ -13,7 +13,7 @@
 
 .info-item {
   font-size: 1.1rem;
-  line-height: 1.2rem;
+  line-height: 1.4rem;
   font-weight: 600;
 }
 
@@ -32,4 +32,21 @@
   display: block;
   margin: 20px 0;
   width: 350px;
+}
+
+.notify {
+  font-size: 1.4rem;
+  margin: 60px auto;
+  width: fit-content;
+  color: var(--grey-dark);
+  text-align: center;
+}
+
+.notify svg {
+  width: 40px;
+  height: 40px;
+}
+
+.payment-wrapper div{
+  margin: 10px 0;
 }

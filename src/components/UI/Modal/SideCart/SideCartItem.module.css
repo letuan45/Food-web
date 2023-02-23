@@ -3,6 +3,7 @@
   padding: 14px 0 10px 17px;
   border-bottom: solid 1px var(--grey-border);
   height: 90px;
+
 }
 
 .item-nav {
@@ -12,6 +13,7 @@
 
 .item-nav span {
   transition: all 0.2s;
+  line-height: 1.2rem;
 }
 
 .item-nav span {

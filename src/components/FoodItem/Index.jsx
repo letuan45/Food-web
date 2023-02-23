@@ -1,18 +1,37 @@
 import WishButton from "../UI/Button/WishButton";
 import { Link } from "react-router-dom";
+import classes from "./Index.module.css";
 
 //icons
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-
-import classes from "./Index.module.css";
 import RatingStars from "../UI/RatingStars/Index";
-// import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
+//import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
+
+//hooks
+import { useDispatch, useSelector } from "react-redux";
+import { toastAction, cartActions} from "../../store";
 
 const Index = (props) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
   const { item, className } = props;
-  const itemId = item.id;
+  const itemId = item["id_item"];
   const price = Number(item.price).toLocaleString("en");
-  const link = `/product/${itemId}`;
+  const link = `/items/detail/${itemId}`;
+
+  const addToCartHandler = (event) => {
+    event.preventDefault();
+    if (!user) {
+      dispatch(
+        toastAction.showToast({
+          message: "Hãy đăng nhập để tương tác với giỏ hàng!",
+          type: "warning",
+        })
+      );
+      return;
+    }
+    dispatch(cartActions(item));
+  };
 
   return (
     <li className={className} style={{ padding: "12px" }}>
@@ -23,7 +42,7 @@ const Index = (props) => {
           </div>
         </Link>
         <div className={classes.wish}>
-          <WishButton itemId={itemId} />
+          <WishButton item={item} isLiked={item.isLiked}/>
         </div>
         <div className={classes.caption}>
           <div className={classes.rating}>
@@ -38,17 +57,9 @@ const Index = (props) => {
             <Link
               to={`add-to-cart/${itemId}`}
               className={classes["to-cart-btn"]}
+              onClick={addToCartHandler}
             >
-              {/* <div
-                style={{
-                  width: "50%",
-                  height: "50%",
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                }}
-              >
+              {/* <div className={classes["loading-wrapper"]}>
                 <LoadingSpinner />
               </div> */}
               <ShoppingBasketIcon></ShoppingBasketIcon>

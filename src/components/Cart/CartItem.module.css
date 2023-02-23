@@ -63,6 +63,7 @@
 
 .desc a {
   font-size: 1.6rem;
+  line-height: 1.8rem;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

@@ -16,7 +16,7 @@ const cartSlice = createSlice({
     addTocart(state, action) {
       const cartItems = state.items;
       const itemFounded = cartItems
-        .filter((item) => item.id === action.payload.id)
+        .filter((item) => item["id_item"] === action.payload["id_item"])
         .pop();
 
       if (itemFounded) {
@@ -66,8 +66,8 @@ const cartSlice = createSlice({
 
     //clear toàn bộ giỏ hàng
     clearCart(state) {
-        state.items = [];
-    }
+      state.items = [];
+    },
   },
 });
 

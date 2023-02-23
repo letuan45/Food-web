@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const useAxiosFunction = () => {
   const [response, setResponse] = useState(null);
@@ -6,7 +6,7 @@ const useAxiosFunction = () => {
   const [loading, setLoading] = useState(false);
   const [controller, setController] = useState();
 
-  const axiosFetch = async (configObj) => {
+  const axiosFetch = useCallback(async (configObj) => {
     const { axiosInstance, method, url, requestConfig = {} } = configObj;
     const token = localStorage.getItem("token");
     try {
@@ -17,21 +17,21 @@ const useAxiosFunction = () => {
       const res = await axiosInstance({
         method: method.toLowerCase(),
         url: url,
-        data: requestConfig.data,
+        data: requestConfig ? requestConfig.data : null,
         signal: ctrl.signal,
         headers: {
-          "access_token": token ? `${token}` : ""
-        }
+          access_token: token ? `${token}` : "",
+        },
       });
 
       setResponse(res.data);
       setError(null);
     } catch (err) {
-      setError(err.response.data);
+      setError(err.response);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     // useEffect cleanup function

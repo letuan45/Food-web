@@ -90,7 +90,7 @@ const LoginForm = (props) => {
     if (loginError) {
       dispatch(
         toastAction.showToast({
-          message: loginError.message,
+          message: loginError.data.message,
           type: "error",
         })
       );

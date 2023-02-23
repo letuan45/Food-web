@@ -8,45 +8,33 @@ import Button from "../UI/Button";
 import BorderedButton from "../UI/Button/BorderedButton";
 
 import { Link } from "react-router-dom";
-
-const DUMMY_FOODS = [
-  {
-    id: 1,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    name: "Tên món ăn Tên món ăn Tên món ăn",
-    price: "60000",
-    quantity: 1,
-  },
-  {
-    id: 2,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    name: "Tên món ăn",
-    price: "60000",
-    quantity: 2,
-  },
-  {
-    id: 3,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    name: "Tên món ăn",
-    price: "60000",
-    quantity: 3,
-  },
-  {
-    id: 4,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    name: "Tên món ăn",
-    price: "60000",
-    quantity: 1,
-  },
-];
+import PersonPinIcon from "@mui/icons-material/PersonPin";
+import { useSelector } from "react-redux";
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 
 const CheckoutMain = () => {
   const [paymentMethod, setPaymentMethod] = useState("cod");
   const descriptionRef = useRef();
+  const user = useSelector((state) => state.auth.user);
+  const cartItems = useSelector((state) => state.cart.items);
+
+  if (!user) {
+    return (
+      <p className={classes.notify}>
+        <PersonPinIcon />
+        Hãy đăng nhập để thanh toán giỏ hàng của bạn!
+      </p>
+    );
+  }
+
+  if (cartItems.length === 0) {
+    return (
+      <p className={classes.notify}>
+        <RemoveShoppingCartIcon />
+        Giỏ hàng của bạn đang trống!
+      </p>
+    );
+  }
 
   const handlePaymentChange = (event) => {
     setPaymentMethod(event.target.value);
@@ -67,21 +55,21 @@ const CheckoutMain = () => {
         <div className={classes.user}>
           <h1 className={classes.header}>Thông tin người đặt</h1>
           <p className={classes["info-item"]}>
-            Họ và tên: <span>Lê Lâm Tuấn</span>
+            Họ và tên: <span>{user.name}</span>
           </p>
           <p className={classes["info-item"]}>
-            Địa chỉ: <span>230/14 Man Thiện</span>
+            Địa chỉ: <span>{user.address}</span>
           </p>
           <p className={classes["info-item"]}>
-            Số điện thoại: <span>0981756860</span>
+            Số điện thoại: <span>{user.phone}</span>
           </p>
         </div>
         <div>
           <h1 className={classes.header}>Giỏ hàng của bạn</h1>
-          <CartTable cartItems={DUMMY_FOODS} />
+          <CartTable cartItems={cartItems} />
         </div>
         <form onSubmit={handleSubmitCheckout}>
-          <div>
+          <div className={classes["payment-wrapper"]}>
             <h1 className={classes.header}>Thông tin đơn hàng</h1>
             <h3 className={classes["inner-header"]}>Phương thức thanh toán</h3>
             <RadioInput

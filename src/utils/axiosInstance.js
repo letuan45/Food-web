@@ -8,12 +8,4 @@ const httpClient = axios.create({
   },
 });
 
-// httpClient.interceptors.request.use(function (config) {
-//   const token = localStorage.getItem("token");
-//   console.log(token);
-//   config.headers["access_token"] = token ? `${token}` : "";
-
-//   return config;
-// });
-
 export default httpClient;

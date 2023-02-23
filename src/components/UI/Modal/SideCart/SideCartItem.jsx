@@ -1,24 +1,30 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import classes from "./SideCartItem.module.css";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
+// import useAxiosFunction from  "../../../../hooks/useAxiosFunction";
+
 const SideCartItem = (props) => {
   const { item } = props;
-  const removeItemAPI = `remove/${item.id}`;
-  const itemLink = `food/${item.id}`;
+  const removeItemURL = `cart/remove/${item["id_item"]}`;
+  const itemLink = `items/detail/${item["id_item"]}`;
   const price = Number(item.price).toLocaleString("en");
+
+  // const handleRemoveItem = (event) => {
+  //   event.preventDefault();
+  // }
 
   return (
     <li className={classes.item}>
-      <NavLink to={removeItemAPI} className={classes["remove-btn"]}>
+      <Link to={removeItemURL} className={classes["remove-btn"]}>
         <HighlightOffIcon />
-      </NavLink>
+      </Link>
       <div className="w-100">
-        <NavLink className={classes["item-nav"]} to={itemLink}>
+        <Link className={classes["item-nav"]} to={itemLink}>
           <img src={item.image} alt="hinh san pham"></img>
           <span>{item.name}</span>
-        </NavLink>
+        </Link>
         <span className={classes["item-desc"]}>
           {item.quantity} x <p>{price} Đ</p>
         </span>

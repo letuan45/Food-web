@@ -1,7 +1,17 @@
 import Table from "react-bootstrap/Table";
 
 const CartTable = (props) => {
-  const { cartItems } = props;   
+  const { cartItems } = props;
+
+  const totalPrice = cartItems.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0);
+  const totalPriceDisplay = Number(totalPrice).toLocaleString("en");
+
+  const totalAmount = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
   return (
     <Table
@@ -18,7 +28,7 @@ const CartTable = (props) => {
       </thead>
       <tbody>
         {cartItems.map((item, index) => (
-          <tr key={item.id}>
+          <tr key={item["id_item"]}>
             <td>{index}</td>
             <td>{item.name}</td>
             <td>{item.quantity}</td>
@@ -30,8 +40,8 @@ const CartTable = (props) => {
         <tr style={{ fontWeight: "600", color: "var(--primary)" }}>
           <td style={{ color: "var(--green)" }}>#</td>
           <td style={{ color: "var(--green)" }}>Tổng giá</td>
-          <td style={{ color: "var(--green)" }}>20</td>
-          <td style={{ color: "var(--green)" }}>1,000,000 VND</td>
+          <td style={{ color: "var(--green)" }}>{totalAmount}</td>
+          <td style={{ color: "var(--green)" }}>{totalPriceDisplay} VND</td>
         </tr>
       </tbody>
     </Table>

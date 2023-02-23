@@ -1,36 +1,42 @@
 //A Cover of followed by youtuber Dave Gray
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 //Hook này dùng cho method Gọi tự động
 const useAxios = (configObj) => {
   const { axiosInstance, method, url, requestConfig = {} } = configObj;
 
-  const [response, setResponse] = useState([]);
+  const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [reload, setReload] = useState(false);
+  const [reload, setReload] = useState(0);
 
-  const refetch = () => {
-    // Để chạy lại useEffect bên dưới
-    setReload((prev) => !prev);
-  };
+  // Để chạy lại useEffect bên dưới
+  const refetch = useCallback(() => {
+    setReload((prev) => prev + 1);
+  }, []);
+
 
   useEffect(() => {
     const controller = new AbortController(); //dùng đến khi cần dừng 1 request
+    const token = localStorage.getItem("token");    
 
     const fetchData = async () => {
       try {
         const res = await axiosInstance({
           method: method.toLowerCase(),
           url: url,
-          data: requestConfig.data,
+          data: requestConfig ? requestConfig.data : null,
+          params: requestConfig ? requestConfig.params : null,
           signal: controller.signal,
+          headers: {
+            access_token: token ? `${token}` : "",
+          },
         });
 
         setResponse(res.data);
         setError(null);
       } catch (err) {
-        setError(err.response.data);
+        setError(err.response);
       } finally {
         setIsLoading(false);
       }
@@ -41,7 +47,8 @@ const useAxios = (configObj) => {
     //Khi conponent unmount câu lệnh sau sẽ chạy
     //và ngăn memory leak
     return () => controller.abort();
-  }, [axiosInstance, method, url, requestConfig, reload]);
+    // eslint-disable-next-line
+  }, [axiosInstance, method, url, reload]);
 
   return { response, isLoading, error, refetch };
 };

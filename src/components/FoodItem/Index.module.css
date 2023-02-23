@@ -67,6 +67,8 @@
   -webkit-line-clamp: 1; /* number of lines to show */
   line-clamp: 1;
   -webkit-box-orient: vertical;
+  line-height: 1.4rem;
+  font-weight: 600;
 }
 
 .name:hover {
@@ -82,7 +84,8 @@
   -webkit-box-orient: vertical;
   margin-bottom: 10px;
   color: var(--grey-dark);
-  height: 30px;
+  line-height: 1.2rem;
+  height: 40px;
 }
 
 .price {
@@ -108,4 +111,17 @@
 .to-cart-btn:hover {
   color: white;
   background-color: var(--primary-dark);
+}
+
+.loading-wrapper {
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loading-wrapper svg {
+  color: var(--green);
 }

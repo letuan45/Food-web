@@ -212,7 +212,7 @@ table {
   background-color: var(--primary);
 }
 
-.MuiPagination-ul li:hover a{
+.MuiPagination-ul li:hover a {
   color: var(--primary);
 }
 
@@ -221,6 +221,17 @@ table {
   top: 100px;
   right: 50px;
   z-index: var(--toast-z-index);
+  display: flex;
+  align-items: center;
+}
+
+.MuiAlert-filled div {
+  font-size: 1rem;
+}
+
+.MuiAlert-filled svg {
+  width: 30px;
+  height: 30px;
 }
 
 .MuiCircularProgress-svg {

@@ -5,44 +5,19 @@ import { Link } from "react-router-dom";
 
 import classes from "./CartList.module.css";
 import Button from "../../components/UI/Button";
-
-const DUMMY_FOODS = [
-  {
-    id: 1,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    name: "Tên món ăn Tên món ăn Tên món ăn",
-    price: "60000",
-    quantity: 1,
-  },
-  {
-    id: 2,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    name: "Tên món ăn",
-    price: "60000",
-    quantity: 2,
-  },
-  {
-    id: 3,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    name: "Tên món ăn",
-    price: "60000",
-    quantity: 3,
-  },
-  {
-    id: 4,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    name: "Tên món ăn",
-    price: "60000",
-    quantity: 1,
-  },
-];
+import { useSelector } from "react-redux";
 
 const CartList = () => {
-  const items = DUMMY_FOODS;
+  const items = useSelector((state) => state.cart.items);
+  const user = useSelector((state) => state.auth.user);
+
+  if (!user) {
+    return (
+      <p className={classes.notification}>
+        Bạn phải đăng nhập để tương tác với giỏ hàng!
+      </p>
+    );
+  }
 
   let content;
   if (!items || items.length === 0) content = <EmptyCart />;
@@ -50,17 +25,23 @@ const CartList = () => {
   content = (
     <ul>
       {items.map((item) => (
-        <CartItem item={item} key={item.id} />
+        <CartItem item={item} key={item["id_item"]} />
       ))}
     </ul>
   );
+
+  const totalPrice = items.reduce(
+    (totalPrice, item) => totalPrice + item.price * item.quantity,
+    0
+  );
+  const totalDisplayPrice = Number(totalPrice).toLocaleString("en");
 
   return (
     <section className="cart-list" style={{ padding: "80px 0" }}>
       <Container fluid="md">
         {content}
         <div className={classes["grand-total"]}>
-          TỔNG GIÁ: <span>300,000 VND</span>
+          TỔNG GIÁ: <span>{totalDisplayPrice} VND</span>
         </div>
         <Link
           to="/checkout"

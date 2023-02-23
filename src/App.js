@@ -12,7 +12,6 @@ import WishListPage from "./pages/WishListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 
 function App() {
-
   //unit test
   // useEffect(() => {
   //   const storedToken = localStorage.getItem("token");
@@ -25,19 +24,36 @@ function App() {
   return (
     <div className="App">
       <Layout>
-        
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/items" element={<ShopPage />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/shop?page=:id" element={<ShopPage />} />
+          <Route path="/items/page/:pageNum" element={<ShopPage />} />
+          <Route path="/items/id_type/:idType" element={<ShopPage />} />
+          <Route
+            path="/items/page/:pageNum/id_type/:idType"
+            element={<ShopPage />}
+          />
+          <Route
+            path="/items/id_type/:idType/typesort/:typeSort"
+            element={<ShopPage />}
+          />
+          <Route path="/items/typesort/:typeSort" element={<ShopPage />} />
+          <Route
+            path="/items/page/:pageNum/typesort/:typeSort"
+            element={<ShopPage />}
+          />
+          <Route
+            path="/items/page/:pageNum/id_type/:idType/typesort/:typeSort"
+            element={<ShopPage />}
+          />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/wish-list" element={<WishListPage />} />
-          <Route path="/product/:id" element={<ProductDetailPage />} />
+          <Route path="/items/detail/:productId" element={<ProductDetailPage />} />
         </Routes>
       </Layout>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
