@@ -36,7 +36,6 @@ const MainNavigation = () => {
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const cart = useSelector((state) => state.cart.items);
-  const cartLength = cart ? cart.length : 0;
   const wishList = useSelector((state) => state.wishList.items);
   const wishListLength = wishList ? wishList.length : 0;
   const {
@@ -189,6 +188,11 @@ const MainNavigation = () => {
       );
     }
   }, [wishListResponse, wishListError, dispatch, user]);
+
+  let cartLength = 0;
+  if(cart) {
+    cartLength = cart.reduce((acc, item) => acc + item.amount, 0);
+  }
 
   return (
     <div className={classes.menu}>

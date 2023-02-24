@@ -90,3 +90,8 @@
 .add-to-cart-wrapper {
   width: 250px;
 }
+
+.product-status {
+  color: var(--grey-dark);
+  margin-bottom: 10px;
+}

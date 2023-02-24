@@ -31,7 +31,7 @@ const CartList = () => {
   );
 
   const totalPrice = items.reduce(
-    (totalPrice, item) => totalPrice + item.price * item.quantity,
+    (totalPrice, item) => totalPrice + item.price * item.amount,
     0
   );
   const totalDisplayPrice = Number(totalPrice).toLocaleString("en");

@@ -20,30 +20,32 @@ const cartSlice = createSlice({
         .pop();
 
       if (itemFounded) {
-        itemFounded.quantity += action.payload.amount;
+        itemFounded.amount += action.payload.amount;
       } else {
         cartItems.unshift(action.payload);
       }
     },
 
-    //Xóa toàn bộ item
+    //Xóa toàn bộ 1 item
     removeEntireItem(state, action) {
       const itemId = action.payload.id;
-      state.items.filter((item) => item.id !== itemId);
+      state.items = state.items.filter((item) => item["id_item"] !== itemId);
     },
 
-    //Xóa khỏi giỏ, nếu sp còn 1 quantity thì xóa toàn bộ
+    //Xóa khỏi giỏ đi 1, nếu sp còn 1 quantity thì xóa toàn bộ
     removeFromCart(state, action) {
       const cartItems = state.items;
       const itemFounded = cartItems
-        .filter((item) => item.id === action.payload.id)
+        .filter((item) => item["id_item"] === action.payload.id)
         .pop();
 
       if (itemFounded) {
         if (action.payload.amount > 1) {
           itemFounded.quantity -= action.payload.quantity;
         } else {
-          state.items.filter((item) => item.id !== action.payload.id);
+          state.items = cartItems.filter(
+            (item) => item["id_item"] !== action.payload.id
+          );
         }
       } else {
         return;
@@ -54,7 +56,7 @@ const cartSlice = createSlice({
     updateQuantity(state, action) {
       const cartItems = state.items;
       const itemFounded = cartItems
-        .filter((item) => item.id === action.payload.id)
+        .filter((item) => item["id_item"] === action.payload.id)
         .pop();
 
       if (itemFounded) {

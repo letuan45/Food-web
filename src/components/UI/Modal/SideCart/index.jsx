@@ -15,7 +15,7 @@ const Index = (props) => {
   const user = useSelector((state) => state.auth.user);
   const cartLength = cart ? cart.length : 0;
   const totalPrice = cart ? cart.reduce(
-    (totalPrice, item) => totalPrice + item.price * item.quantity,
+    (totalPrice, item) => totalPrice + item.price * item.amount,
     0
   ) : 0;
   const totalPriceString = Number(totalPrice).toLocaleString("en");

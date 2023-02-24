@@ -1,15 +1,18 @@
 import WishButton from "../UI/Button/WishButton";
 import { Link } from "react-router-dom";
 import classes from "./Index.module.css";
+import { useEffect } from "react";
 
 //icons
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import RatingStars from "../UI/RatingStars/Index";
-//import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 //hooks
 import { useDispatch, useSelector } from "react-redux";
 import { toastAction, cartActions} from "../../store";
+import useAxiosFunction from "../../hooks/useAxiosFunction";
+import httpClient from "../../utils/axiosInstance";
 
 const Index = (props) => {
   const dispatch = useDispatch();
@@ -18,6 +21,13 @@ const Index = (props) => {
   const itemId = item["id_item"];
   const price = Number(item.price).toLocaleString("en");
   const link = `/items/detail/${itemId}`;
+  const addToCartURL = `/cart/add/${itemId}`;
+  const {
+    response: addToCartResponse,
+    error: addToCartError,
+    axiosFetch: addToCart,
+    loading: isLoadingAddToCart
+  } = useAxiosFunction();
 
   const addToCartHandler = (event) => {
     event.preventDefault();
@@ -30,8 +40,34 @@ const Index = (props) => {
       );
       return;
     }
-    dispatch(cartActions(item));
+    addToCart({
+      axiosInstance: httpClient,
+      method: "POST",
+      url: addToCartURL
+    })
   };
+
+  useEffect(() => {
+    if (addToCartResponse) {
+      dispatch(cartActions.addTocart({ ...item, amount: 1 }));
+      dispatch(
+        toastAction.showToast({
+          message: addToCartResponse.message,
+          type: "success",
+        })
+      );
+      return;
+    }
+    if (addToCartError) {
+      dispatch(
+        toastAction.showToast({
+          message: addToCartError.data.message,
+          type: "error",
+        })
+      );
+    }
+    /* eslint-disable-next-line */
+  }, [addToCartError, addToCartResponse, dispatch]);
 
   return (
     <li className={className} style={{ padding: "12px" }}>
@@ -42,7 +78,7 @@ const Index = (props) => {
           </div>
         </Link>
         <div className={classes.wish}>
-          <WishButton item={item} isLiked={item.isLiked}/>
+          <WishButton item={item} isLiked={item.isLiked} />
         </div>
         <div className={classes.caption}>
           <div className={classes.rating}>
@@ -59,10 +95,13 @@ const Index = (props) => {
               className={classes["to-cart-btn"]}
               onClick={addToCartHandler}
             >
-              {/* <div className={classes["loading-wrapper"]}>
-                <LoadingSpinner />
-              </div> */}
-              <ShoppingBasketIcon></ShoppingBasketIcon>
+              {isLoadingAddToCart ? (
+                <div className={classes["loading-wrapper"]}>
+                  <LoadingSpinner />
+                </div>
+              ) : (
+                <ShoppingBasketIcon></ShoppingBasketIcon>
+              )}
             </Link>
           </div>
         </div>

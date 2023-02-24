@@ -95,9 +95,16 @@ const ShopPageMain = () => {
   }, [idType, reloadProducts, typeSort]);
 
   let PRODUCTS = productsResponse ? productsResponse.itemList : [];
-  const totalPage = productsResponse ? productsResponse.totalPage : 0; 
   PRODUCTS = useWishlistTransform(PRODUCTS);
-
+  let totalPage = 0;
+  if(productsResponse) {
+    let count = 0;
+    const totalItems = productsResponse.totalItems;
+    for(let i = totalItems; i > 0; i-= 12) {
+      count++;
+    }
+    totalPage = count;
+  }
 
   //Product list
   let productsContent;
@@ -127,8 +134,6 @@ const ShopPageMain = () => {
       </ul>
     );
   }
-
-  const paginationLength = totalPage;
 
   //Events
   const handleOpenCate = () => {
@@ -209,7 +214,7 @@ const ShopPageMain = () => {
                 <CustomPagination
                   resetPaginate={resetPaginate}
                   unsetResetPaginate={handleUnsetResetPaginate}
-                  count={paginationLength}
+                  count={totalPage}
                   type={idType}
                 />
               </div>

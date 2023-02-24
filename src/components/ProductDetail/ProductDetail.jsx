@@ -38,7 +38,7 @@ const ProductDetail = (props) => {
   });
 
   useEffect(() => {
-    if(product) {
+    if (product) {
       onChangeBreadcrumb({
         title: product.name,
         link: `/items/detail/${product["id_item"]}`,
@@ -64,6 +64,14 @@ const ProductDetail = (props) => {
 
   //Dữ liệu render
   const price = Number(product.price).toLocaleString("en");
+  let status = "";
+  if (product.status === 1) {
+    status = "Còn hàng";
+  } else if (product.status === 2) {
+    status = "Hết hàng";
+  } else {
+    status = "Ngừng kinh doanh";
+  }
 
   return (
     <section className="product-detail">
@@ -83,6 +91,7 @@ const ProductDetail = (props) => {
           <Col md={6} style={{ padding: "10px 30px" }}>
             <h1 className={classes["product-name"]}>{product.name}</h1>
             <p className={classes["product-stock"]}>Tồn: {product.quantity}</p>
+            <p className={classes["product-status"]}>Trạng thái: {status}</p>
             <RatingStars rating={product.rating} />
             <p className={classes["product-description"]}>
               Nguyên liệu: {product.ingredient}
@@ -90,7 +99,10 @@ const ProductDetail = (props) => {
             <h1 className={classes["price"]}>{price} VND</h1>
             <hr></hr>
             <div className={classes["control-wrapper"]}>
-              <QuantityControl maxQuantity={product.quantity} />
+              <QuantityControl
+                maxQuantity={product.quantity}
+                product={product}
+              />
               <div className={classes["wish-wrapper"]}>
                 <WishButton item={product} isLiked={isLiked} />
               </div>

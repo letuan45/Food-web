@@ -1,17 +1,27 @@
 import classes from "./QuantityControl.module.css";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Button from "../../components/UI/Button";
+
 import { useSelector, useDispatch } from "react-redux";
-import { toastAction } from "../../store";
+import { toastAction, cartActions } from "../../store";
+import useAxiosFunction from "../../hooks/useAxiosFunction";
+import httpClient from "../../utils/axiosInstance";
 
 const QuantityControl = (props) => {
   const [quantity, setQuantity] = useState(1);
+  const { product } = props;
   const { maxQuantity } = props;
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  let addToCartURL = `/cart/add/${product["id_item"]}`;
+  const {
+    response: addToCartResponse,
+    error: addToCartError,
+    axiosFetch: addToCart,
+  } = useAxiosFunction();
 
   const increaseQuantityHandler = (event) => {
     event.preventDefault();
@@ -32,7 +42,6 @@ const QuantityControl = (props) => {
       setQuantity(1);
       return;
     }
-
     setQuantity(value);
   };
 
@@ -41,11 +50,42 @@ const QuantityControl = (props) => {
       dispatch(
         toastAction.showToast({
           message: "Bạn phải đăng nhập để tương tác với giỏ hàng",
-          type: "warning"
+          type: "warning",
+        })
+      );
+      return;
+    }
+    addToCartURL += `/${quantity}`;
+    addToCart({
+      axiosInstance: httpClient,
+      method: "POST",
+      url: addToCartURL,
+    });
+    //dispatch(cartActions.addTocart({...product, amount: quantity}));
+  };
+
+  useEffect(() => {
+    if (addToCartResponse) {
+      dispatch(cartActions.addTocart({ ...product, amount: quantity }));
+      dispatch(
+        toastAction.showToast({
+          message: addToCartResponse.message,
+          type: "success",
+        })
+      );
+      return;
+    }
+    if(addToCartError) {
+      console.log(addToCartError);
+      dispatch(
+        toastAction.showToast({
+          message: addToCartError.data.message,
+          type: "error",
         })
       );
     }
-  };
+    /* eslint-disable-next-line */
+  }, [addToCartError, addToCartResponse, dispatch]);
 
   return (
     <Fragment>
