@@ -40,12 +40,12 @@ const cartSlice = createSlice({
         .pop();
 
       if (itemFounded) {
-        if (action.payload.amount > 1) {
-          itemFounded.quantity -= action.payload.quantity;
-        } else {
+        if (itemFounded.amount === 1) {
           state.items = cartItems.filter(
             (item) => item["id_item"] !== action.payload.id
           );
+        } else {
+          itemFounded.amount--;
         }
       } else {
         return;
@@ -60,7 +60,7 @@ const cartSlice = createSlice({
         .pop();
 
       if (itemFounded) {
-        itemFounded.quantity = action.payload.amount;
+        itemFounded.amount = action.payload.amount;
       } else {
         return;
       }

@@ -1,5 +1,5 @@
 import classes from "./index.module.css";
-import SideCartList from "./SideCartList";
+import SideCartList from "./SideCartList/SideCartList";
 
 import Button from "../../Button/index";
 import { NavLink } from "react-router-dom";

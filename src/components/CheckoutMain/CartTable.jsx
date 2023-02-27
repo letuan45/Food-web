@@ -4,12 +4,12 @@ const CartTable = (props) => {
   const { cartItems } = props;
 
   const totalPrice = cartItems.reduce((total, item) => {
-    return total + item.price * item.quantity;
+    return total + item.price * item.amount;
   }, 0);
   const totalPriceDisplay = Number(totalPrice).toLocaleString("en");
 
   const totalAmount = cartItems.reduce(
-    (total, item) => total + item.quantity,
+    (total, item) => total + item.amount,
     0
   );
 
@@ -29,17 +29,17 @@ const CartTable = (props) => {
       <tbody>
         {cartItems.map((item, index) => (
           <tr key={item["id_item"]}>
-            <td>{index}</td>
+            <td>{index + 1}</td>
             <td>{item.name}</td>
-            <td>{item.quantity}</td>
+            <td>{item.amount}</td>
             <td>
-              {Number(item.price * item.quantity).toLocaleString("en")} VND
+              {Number(item.price * item.amount).toLocaleString("en")} VND
             </td>
           </tr>
         ))}
         <tr style={{ fontWeight: "600", color: "var(--primary)" }}>
           <td style={{ color: "var(--green)" }}>#</td>
-          <td style={{ color: "var(--green)" }}>Tổng giá</td>
+          <td style={{ color: "var(--green)" }}>Tổng</td>
           <td style={{ color: "var(--green)" }}>{totalAmount}</td>
           <td style={{ color: "var(--green)" }}>{totalPriceDisplay} VND</td>
         </tr>

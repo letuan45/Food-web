@@ -2,6 +2,7 @@
   border: 1px solid var(--primary);
   border-radius: 50px;
   display: flex;
+  position: relative;
 }
 
 .control-form input {

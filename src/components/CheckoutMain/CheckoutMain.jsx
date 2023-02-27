@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Container from "react-bootstrap/Container";
 import RadioInput from "../UI/Input/RadioInput";
 import CartTable from "./CartTable";
@@ -11,12 +11,27 @@ import { Link } from "react-router-dom";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { useSelector } from "react-redux";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+import httpClient from "../../utils/axiosInstance";
+import useAxios from "../../hooks/useAxios";
 
 const CheckoutMain = () => {
   const [paymentMethod, setPaymentMethod] = useState("cod");
+  const [paymentList, setPaymentList] = useState([])
   const descriptionRef = useRef();
   const user = useSelector((state) => state.auth.user);
   const cartItems = useSelector((state) => state.cart.items);
+  const getPaymentMethodURL = "/payment_methods";
+
+  const {response: paymentsResponse} = useAxios({
+    axiosInstance: httpClient,
+    method: "GET",
+    url: getPaymentMethodURL
+  });
+
+  useEffect(() => {
+    console.log(paymentsResponse);
+    setPaymentList(paymentsResponse);
+  },[paymentsResponse]);
 
   if (!user) {
     return (
@@ -72,7 +87,18 @@ const CheckoutMain = () => {
           <div className={classes["payment-wrapper"]}>
             <h1 className={classes.header}>Thông tin đơn hàng</h1>
             <h3 className={classes["inner-header"]}>Phương thức thanh toán</h3>
-            <RadioInput
+            {paymentList && paymentList.map((item, index) => (
+              <RadioInput
+                key={index}
+                label={item.name}
+                value={item["id_payment"]}
+                onChange={handlePaymentChange}
+                name="payment"
+                defaultChecked
+              />
+            ))}
+
+            {/* <RadioInput
               label="COD (thanh toán khi nhận hàng)"
               value="cod"
               onChange={handlePaymentChange}
@@ -90,7 +116,7 @@ const CheckoutMain = () => {
               value="credit"
               name="payment"
               onChange={handlePaymentChange}
-            />
+            /> */}
           </div>
           <div>
             <h3 className={classes["inner-header"]}>Ghi chú cho chúng tôi</h3>

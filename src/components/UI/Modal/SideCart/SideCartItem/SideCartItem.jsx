@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 import classes from "./SideCartItem.module.css";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import useAxiosFunction from "../../../../hooks/useAxiosFunction";
+import useAxiosFunction from "../../../../../hooks/useAxiosFunction";
 import { useSelector, useDispatch } from "react-redux";
-import { cartActions, toastAction } from "../../../../store";
-import httpClient from "../../../../utils/axiosInstance";
+import { cartActions, toastAction } from "../../../../../store";
+import httpClient from "../../../../../utils/axiosInstance";
 import { useEffect } from "react";
 
 const SideCartItem = (props) => {

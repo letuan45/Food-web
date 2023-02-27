@@ -96,6 +96,7 @@ const ShopPageMain = () => {
 
   let PRODUCTS = productsResponse ? productsResponse.itemList : [];
   PRODUCTS = useWishlistTransform(PRODUCTS);
+  const totalItems = productsResponse ? productsResponse.totalItems : 0;
   let totalPage = 0;
   if(productsResponse) {
     let count = 0;
@@ -169,6 +170,9 @@ const ShopPageMain = () => {
     setResetPaginate(false);
   };
 
+  const from = pageNum ? (1+12*(pageNum-1)) :1;
+  const to = pageNum ? (PRODUCTS.length) + 12*(pageNum-1) : 12;
+
   return (
     <section className="shop-page">
       {cateIsOpen && <Backdrop onClose={handleCloseCate} />}
@@ -187,9 +191,9 @@ const ShopPageMain = () => {
                   </button>
                   <div className={classes["cate-length"]}>
                     Hiển thị
-                    <span> 1-12 </span>
+                    <span> {from}-{to} </span>
                     Trên
-                    <span> 54 </span>
+                    <span> {totalItems} </span>
                     Kết quả
                   </div>
                 </div>

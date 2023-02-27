@@ -39,7 +39,7 @@ const Content = (props) => {
     url: getTypesURL,
   });
   const categories = typesResponse ? typesResponse : null;
-  const { handleSearch, bestDealContent, isOpened, onClose } = props;
+  const { bestDealContent, isOpened, onClose } = props;
 
   if (!categories || typesError) {
     return <p>Không tải được danh mục</p>;
@@ -82,7 +82,7 @@ const Content = (props) => {
         </ul>
       </div>
       <div className={classes["search-wrapper"]}>
-        <SearchBar onSubmit={handleSearch} placeholder="Tìm món..." />
+        <SearchBar placeholder="Tìm món..." />
       </div>
       <div className={classes["best-deal"]}>
         <h2 className={classes["best-deal__header"]}>Hot trong tháng</h2>
@@ -116,17 +116,11 @@ const Categories = (props) => {
     );
   }
 
-  //Call search
-  const handleSearch = (searchValue) => {
-    console.log(searchValue);
-  };
-
   if (isModal) {
     return (
       <Fragment>
         {createPortal(
           <Content
-            handleSearch={handleSearch}
             bestDealContent={bestDealContent}
             categories={props.categories ? props.categories : null}
             isOpened={isOpened}
@@ -141,7 +135,6 @@ const Categories = (props) => {
 
   return (
     <Content
-      handleSearch={handleSearch}
       bestDealContent={bestDealContent}
       onChange={props.onChange}
     ></Content>

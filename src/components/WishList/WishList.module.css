@@ -71,3 +71,17 @@
   width: 50px;
   height: 50px;
 }
+
+.to-cart-btn {
+  height: 50px;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.to-cart-btn.loading {
+  pointer-events: none;
+}
+
+.to-cart-btn button {
+  height: 100%;
+}

@@ -1,6 +1,6 @@
 import EmptyCart from "../../components/UI/EmptyCart";
 import Container from "react-bootstrap/Container";
-import CartItem from "./CartItem";
+import CartItem from "./CartItem/CartItem";
 import { Link } from "react-router-dom";
 
 import classes from "./CartList.module.css";

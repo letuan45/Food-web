@@ -1,0 +1,31 @@
+.item-wrapper {
+  display: flex;
+  border-radius: 14px;
+  transition: all 0.2s;
+}
+
+.item-wrapper:hover {
+  background-color: var(--milk-bg);
+}
+
+.item-wrapper img {
+  width: 100px;
+  height: 100px;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--text);
+}
+
+.product-name {
+  color: var(--primary);
+  margin-bottom: 5px;
+}
+
+.price {
+    color: var(--green);
+    font-weight: 600;
+}

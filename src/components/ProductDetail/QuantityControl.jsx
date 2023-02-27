@@ -11,12 +11,12 @@ import useAxiosFunction from "../../hooks/useAxiosFunction";
 import httpClient from "../../utils/axiosInstance";
 
 const QuantityControl = (props) => {
-  const [quantity, setQuantity] = useState(1);
+  const [amount, setAmount] = useState(1);
   const { product } = props;
   const { maxQuantity } = props;
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
-  let addToCartURL = `/cart/add/${product["id_item"]}`;
+  const addToCartURL = `/cart/add/${product["id_item"]}`;
   const {
     response: addToCartResponse,
     error: addToCartError,
@@ -26,23 +26,23 @@ const QuantityControl = (props) => {
   const increaseQuantityHandler = (event) => {
     event.preventDefault();
 
-    setQuantity((state) => state + 1);
+    setAmount((state) => state + 1);
   };
 
   const decreaseQuantityHandler = (event) => {
     event.preventDefault();
 
-    if (quantity - 1 <= 0) return;
-    setQuantity((state) => state - 1);
+    if (amount - 1 <= 0) return;
+    setAmount((state) => state - 1);
   };
 
   const handleQuantityChange = (event) => {
     const value = +event.target.value;
     if (value <= 0 || isNaN(value) || value > maxQuantity) {
-      setQuantity(1);
+      setAmount(1);
       return;
     }
-    setQuantity(value);
+    setAmount(value);
   };
 
   const addToCartHandler = () => {
@@ -55,18 +55,19 @@ const QuantityControl = (props) => {
       );
       return;
     }
-    addToCartURL += `/${quantity}`;
     addToCart({
       axiosInstance: httpClient,
       method: "POST",
       url: addToCartURL,
+      requestConfig: {
+        data: { quantity: amount },
+      },
     });
-    //dispatch(cartActions.addTocart({...product, amount: quantity}));
   };
 
   useEffect(() => {
     if (addToCartResponse) {
-      dispatch(cartActions.addTocart({ ...product, amount: quantity }));
+      dispatch(cartActions.addTocart({ ...product, amount: amount }));
       dispatch(
         toastAction.showToast({
           message: addToCartResponse.message,
@@ -93,7 +94,7 @@ const QuantityControl = (props) => {
         <button onClick={decreaseQuantityHandler}>
           <RemoveIcon />
         </button>
-        <input value={quantity} onChange={handleQuantityChange} />
+        <input value={amount} onChange={handleQuantityChange} />
         <button onClick={increaseQuantityHandler}>
           <AddIcon />
         </button>

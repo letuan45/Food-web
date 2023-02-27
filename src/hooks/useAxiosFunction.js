@@ -19,11 +19,11 @@ const useAxiosFunction = () => {
         url: url,
         data: requestConfig ? requestConfig.data : null,
         signal: ctrl.signal,
+        params: requestConfig ? requestConfig.params : null,
         headers: {
           access_token: token ? `${token}` : "",
         },
       });
-
       setResponse(res.data);
       setError(null);
     } catch (err) {

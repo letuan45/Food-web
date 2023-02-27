@@ -1,7 +1,7 @@
 import classes from "./SideCartList.module.css";
 
 import ShopIcon from "@mui/icons-material/Shop";
-import SideCartItem from "./SideCartItem";
+import SideCartItem from "../SideCartItem/SideCartItem";
 
 const SideCartList = (props) => {
   const { cartItems } = props;
