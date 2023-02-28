@@ -47,10 +47,27 @@ function App() {
             path="/items/page/:pageNum/id_type/:idType/typesort/:typeSort"
             element={<ShopPage />}
           />
+          <Route path="/items/name/:searchValue" element={<ShopPage />} />
+          <Route
+            path="/items/page/:pageNum/name/:searchValue"
+            element={<ShopPage />}
+          />
+          <Route
+            path="/items/name/:searchValue/typesort/:typeSort"
+            element={<ShopPage />}
+          />
+          <Route
+            path="/items/page/:pageNum/name/:searchValue/typesort/:typeSort"
+            element={<ShopPage />}
+          />
+
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/wish-list" element={<WishListPage />} />
-          <Route path="/items/detail/:productId" element={<ProductDetailPage />} />
+          <Route
+            path="/items/detail/:productId"
+            element={<ProductDetailPage />}
+          />
         </Routes>
       </Layout>
       <Footer />

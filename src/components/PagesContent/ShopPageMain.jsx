@@ -59,6 +59,7 @@ const ShopPageMain = () => {
   getItemsURL += pageNum ? `/${pageNum}` : "";
   const { idType } = useParams();
   const { typeSort } = useParams();
+  const { searchValue } = useParams();
   let navigate = useNavigate();
   const location = useLocation();
 
@@ -83,6 +84,7 @@ const ShopPageMain = () => {
       params: {
         id_type: idType ? idType : "",
         typesort: typeSort ? typeSort : "",
+        name: searchValue ? searchValue : "",
       },
     },
   });
@@ -92,16 +94,16 @@ const ShopPageMain = () => {
     if (typeSort) return;
     //set page bằng 1
     setResetPaginate(true);
-  }, [idType, reloadProducts, typeSort]);
+  }, [idType, reloadProducts, typeSort, searchValue]);
 
   let PRODUCTS = productsResponse ? productsResponse.itemList : [];
   PRODUCTS = useWishlistTransform(PRODUCTS);
   const totalItems = productsResponse ? productsResponse.totalItems : 0;
   let totalPage = 0;
-  if(productsResponse) {
+  if (productsResponse) {
     let count = 0;
     const totalItems = productsResponse.totalItems;
-    for(let i = totalItems; i > 0; i-= 12) {
+    for (let i = totalItems; i > 0; i -= 12) {
       count++;
     }
     totalPage = count;
@@ -170,8 +172,8 @@ const ShopPageMain = () => {
     setResetPaginate(false);
   };
 
-  const from = pageNum ? (1+12*(pageNum-1)) :1;
-  const to = pageNum ? (PRODUCTS.length) + 12*(pageNum-1) : 12;
+  const from = pageNum ? 1 + 12 * (pageNum - 1) : 1;
+  const to = pageNum ? PRODUCTS.length + 12 * (pageNum - 1) : 12;
 
   return (
     <section className="shop-page">
@@ -191,7 +193,10 @@ const ShopPageMain = () => {
                   </button>
                   <div className={classes["cate-length"]}>
                     Hiển thị
-                    <span> {from}-{to} </span>
+                    <span>
+                      {" "}
+                      {from}-{to}{" "}
+                    </span>
                     Trên
                     <span> {totalItems} </span>
                     Kết quả

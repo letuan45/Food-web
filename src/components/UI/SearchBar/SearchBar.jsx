@@ -5,21 +5,27 @@ import SearchList from "./SearchList";
 import httpClient from "../../../utils/axiosInstance";
 import useAxiosFunction from "../../../hooks/useAxiosFunction";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = (props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchedItems, setSearchedItems] = useState([]);
   const getItemsURL = "/items";
+  const navigate = useNavigate();
   const {
     response: searchRes,
     loading: searchIsLoading,
     axiosFetch: callSearch,
   } = useAxiosFunction();
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
     if (searchValue.length === 0) return;
-    props.onSubmit(searchValue);
+    navigate(`/items/name/${searchValue}`);
+    setSearchValue("");
+    setIsFocused(false);
   };
 
   //Search
@@ -31,7 +37,7 @@ const SearchBar = (props) => {
     if (searchValue.length === 0) {
       setSearchedItems([]);
       return;
-    };
+    }
     callSearch({
       axiosInstance: httpClient,
       method: "GET",
@@ -46,6 +52,7 @@ const SearchBar = (props) => {
 
   useEffect(() => {
     if (isFocused === false) {
+      console.log(isFocused);
       setSearchedItems([]);
       return;
     }
@@ -62,6 +69,9 @@ const SearchBar = (props) => {
         onChange={handleValueChange}
         onFocus={() => {
           setIsFocused(true);
+        }}
+        onBlur={() => {
+          setIsFocused(false);
         }}
       />
       <button type="submit">
