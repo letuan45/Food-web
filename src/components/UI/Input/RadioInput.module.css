@@ -10,6 +10,7 @@
 .wrapper input {
     width: 16px;
     position: relative;
+    cursor: pointer;
 }
 
 .wrapper input:checked {

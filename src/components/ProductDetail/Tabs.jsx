@@ -1,40 +1,38 @@
 import { useState } from "react";
 import classes from "./Tabs.module.css";
 import ReviewItem from "./ReviewItem";
-import ReviewForm from "./ReviewForm";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const DUMMY_REVIEW = [
-  {
-    id: 1,
-    userName: "Tuấn",
-    rating: 5,
-    comment:
-      "I am 6 feet tall and 220 lbs. This shirt fit me perfectly in the chest and shoulders. My only complaint is that it is so long! I like to wear polo shirts untucked. This shirt goes completely past my rear end. If I wore it with ordinary shorts, you probably wouldnt be able to see the shorts at all – completely hidden by the shirt. It needs to be 4 to 5 inches shorter in terms of length to suit me. I have many RL polo shirts, and this one is by far the longest. I dont understand why.",
-    date: new Date(),
-  },
-  {
-    id: 2,
-    userName: "Tuấn Lê",
-    rating: 1,
-    comment: "Vị như đuồi bầu",
-    date: new Date(),
-  },
-];
+import useAxios from "../../hooks/useAxios";
+import httpClient from "../../utils/axiosInstance";
 
 const Tabs = (props) => {
+  const { productId } = props;
   const [tabState, setTabState] = useState(1);
-  const {description} = props;
+  const { description } = props;
+  const getReviewURL = `reviews/${productId}`;
+
+  const { response } = useAxios({
+    axiosInstance: httpClient,
+    method: "GET",
+    url: getReviewURL,
+  });
+
+  const REVIEWS = response ? response : [];
 
   let reviewList = (
     <p className={classes["empty-rv"]}>Không có đánh giá nào cho món này.</p>
   );
 
-  if (DUMMY_REVIEW || DUMMY_REVIEW.length > 0) {
-    reviewList = DUMMY_REVIEW.map((item) => (
-      <ReviewItem item={item} key={item.id} />
-    ));
+  if (REVIEWS && REVIEWS.length > 0) {
+    reviewList = (
+      <ul>
+        {REVIEWS.map((item, index) => (
+          <ReviewItem item={item} key={index} />
+        ))}
+      </ul>
+    );
   }
 
   const toggleTab = (state) => {
@@ -74,7 +72,7 @@ const Tabs = (props) => {
               }
               onClick={() => toggleTab(2)}
             >
-              Review (14)
+              Review ({REVIEWS.length})
             </button>
           </Col>
         </Row>
@@ -88,9 +86,6 @@ const Tabs = (props) => {
             <Col md={12} style={{ padding: "10px 30px" }}>
               {reviewList}
             </Col>
-            {/* <Col md={6} style={{ padding: "10px 30px" }}>
-              <ReviewForm />
-            </Col> */}
           </Row>
         )}
       </div>

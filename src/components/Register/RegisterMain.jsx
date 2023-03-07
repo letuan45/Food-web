@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useFormik } from "formik";
 
 import LabledInput from "../../components/UI/Input/LabledInput";
@@ -6,7 +6,12 @@ import Button from "../../components/UI/Button/SmallButton";
 import BreadCrumbs from "../../components/UI/BreadCrumbs";
 
 import background from "../../assets/images/backgrounds/breadcrumb.jpg";
-import classes from "./RegisterMain.module.css"
+import classes from "./RegisterMain.module.css";
+import useAxiosFunction from "../../hooks/useAxiosFunction";
+import httpClient from "../../utils/axiosInstance";
+import LoadingSpinner from "../../components/UI/LoadingSpinner/LoadingSpinner";
+import { useDispatch } from "react-redux";
+import { toastAction } from "../../store";
 
 const validateLogin = (values) => {
   const errors = {};
@@ -24,12 +29,10 @@ const validateLogin = (values) => {
   }
   if (!values.name || values.name.trim().length === 0) {
     errors.name = "Xin hãy nhập tên của bạn !";
-  } else if (!/^(?:[A-Za-z]+ )+[A-Za-z]+$/.test(values.name)) {
-    errors.name = "Tên không hợp lệ !";
   }
   if (!values.username || values.username.trim().length === 0) {
     errors.username = "Xin hãy nhập username của bạn !";
-  } else if (!/^[A-Za-z]+$/.test(values.username)) {
+  } else if (!/^[A-Za-z0-9]+$/.test(values.username)) {
     errors.username = "Tên không hợp lệ !";
   }
   if (!values.phone || values.phone.trim().length === 0) {
@@ -52,6 +55,15 @@ const validateLogin = (values) => {
 };
 
 const RegisterMain = () => {
+  const dispatch = useDispatch();
+  const registerURL = "/account/create";
+  const {
+    response: registerResponse,
+    error: registerError,
+    loading: registerIsLoading,
+    axiosFetch: callRegister,
+  } = useAxiosFunction();
+
   const formikRegister = useFormik({
     initialValues: {
       email: "",
@@ -64,16 +76,54 @@ const RegisterMain = () => {
     },
     validate: validateLogin,
     onSubmit: (values, { resetForm }) => {
-      console.log("vao dk ");
+      const data = {
+        username: values.username,
+        password: values.password,
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        address: values.address,
+      };
+      callRegister({
+        axiosInstance: httpClient,
+        method: "POST",
+        url: registerURL,
+        requestConfig: {data: data}
+      });
       resetForm();
     },
   });
 
+  useEffect(() => {
+    if (registerError) {
+      console.log(registerError);
+      dispatch(
+        toastAction.showToast({
+          message: registerError.data.message,
+          type: "error",
+        })
+      );
+      return;
+    }
+    if (registerResponse) {
+      console.log(registerResponse);
+      dispatch(
+        toastAction.showToast({
+          message: registerResponse.message,
+          type: "success",
+        })
+      );
+    }
+  }, [registerResponse, registerError, dispatch]);
+
   return (
     <Fragment>
-      <BreadCrumbs background={background} registerBreadcrumbs={true}/>
-      <div className="container " style={{ marginTop: "80px", marginBottom: "80px"}}>
-        <form onSubmit={formikRegister.onSubmit} className={classes.form}>
+      <BreadCrumbs background={background} registerBreadcrumbs={true} />
+      <div
+        className="container "
+        style={{ marginTop: "80px", marginBottom: "80px" }}
+      >
+        <form onSubmit={formikRegister.handleSubmit} className={classes.form}>
           <LabledInput
             name="username"
             label="Username"
@@ -175,7 +225,11 @@ const RegisterMain = () => {
                 : null
             }
           />
-          <Button type="submit">Đăng Ký</Button>
+          <div className={classes["btn_wrap"]}>
+            <Button type="submit">
+              {registerIsLoading ? <LoadingSpinner /> : "Đăng ký"}
+            </Button>
+          </div>
         </form>
       </div>
     </Fragment>

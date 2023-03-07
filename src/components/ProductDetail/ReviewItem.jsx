@@ -4,7 +4,8 @@ import WatchLaterRoundedIcon from "@mui/icons-material/WatchLaterRounded";
 
 const ReviewItem = (props) => {
   const { item } = props;
-  const itemDateString = item.date.toDateString(); 
+  const itemDateString = item.datetime;
+  console.log(item) 
 
   return (
     <li className={classes.item}>
@@ -16,7 +17,7 @@ const ReviewItem = (props) => {
       <div className={classes["content-wrapper"]}>
         <RatingStars rating={item.rating} />
         <div className={classes["name-and-date"]}>
-          <p>{item.userName}</p>
+          <p>{item.name}</p>
           <span className={classes["date"]}>
             <WatchLaterRoundedIcon />
             {itemDateString}

@@ -1,0 +1,19 @@
+.cancel-btn {
+  background-color: var(--red);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.cancel-btn:hover {
+  filter: brightness(0.9);
+  color: var(--primary);
+}
+
+.cancel-btn.disabled {
+  background-color: var(--grey);
+  pointer-events: none;
+}

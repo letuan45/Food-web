@@ -1,0 +1,142 @@
+.table {
+  margin-top: 20px;
+  text-align: center;
+  border-collapse:separate; 
+  border-spacing: 0 1rem;
+}
+
+.table-header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  font-size: 1.2rem;
+  border-bottom: 5px solid var(--red);
+  z-index: 1;
+}
+
+.id-item span{
+  padding: 5px 8px;
+  border-radius: 22px;
+  background-color: var(--primary);
+  opacity: 0.8;
+  font-weight: 600;
+}
+
+.table-item td {
+  padding: 20px 0;
+  font-size: 1.1rem;
+  background-color: #f8f8f8;
+}
+
+.table-item td span {
+  display: inline-block;
+}
+
+.table-item td:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.table-item td:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.status {
+  border-radius: 22px;
+  padding: 5px 12px;
+}
+
+.status.yellow {
+  background-color: rgba(238,172,0,.3);
+  color: #c6920f;
+  font-weight: 600;
+}
+
+.status.green {
+  background-color: rgba(0,161,73,.3);
+  color: #00a149;
+  font-weight: 600;
+}
+
+.status.red {
+  background-color: rgba(230,57,70,.3);
+  color: #e63946;
+  font-weight: 600;
+}
+
+.item-info {
+  color: var(--primary);
+  font-weight: 600;
+  transition: all .2s;
+  margin-right: 10px;
+}
+
+.item-info svg {
+  width: 40px;
+  height: 40px;
+}
+
+.item-info:hover {
+  color: var(--green);
+}
+
+.table-item:hover td {
+  background-color: #eeeeee;
+}
+
+.empty {
+  font-size: 1.4rem;
+  color: var(--grey-dark);
+  text-align: center;
+  margin-top: 20px;
+}
+
+.empty svg {
+  width: 40px;
+  height: 40px;
+}
+
+.loading {
+  width: 80px;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 80px;
+}
+
+.loading svg {
+  color: var(--primary-dark);
+}
+
+.wrapper {
+  height: 500px;
+  overflow: auto;
+}
+
+.reviewings {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.reviewings.no_reviewing {
+  color: var(--grey-dark);
+}
+
+@media (max-width: 568px) {
+  .table-header {
+    font-size: 1rem;
+  }
+
+  .item-info {
+    font-size: 1rem;
+  }
+
+  .status {
+    font-size: 0.8rem;
+  }
+
+  .table-item td {
+    font-size: 1rem;
+  }
+}

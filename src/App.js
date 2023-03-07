@@ -1,5 +1,7 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
@@ -10,16 +12,16 @@ import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import WishListPage from "./pages/WishListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import OrdersPage from "./pages/OrdersPage";
+import OrderDetailPage from "./pages/OrderDetailPage";
+import CheckoutSuccess from "./components/PagesContent/CheckoutSuccess";
 
 function App() {
-  //unit test
-  // useEffect(() => {
-  //   const storedToken = localStorage.getItem("token");
-  //   const expiredTime = localStorage.getItem("expiredTime");
-  //   const userStored = JSON.parse(localStorage.getItem("user"));
+  const { pathname } = useLocation();
 
-  //   console.log("app:", storedToken, expiredTime, userStored);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className="App">
@@ -68,6 +70,9 @@ function App() {
             path="/items/detail/:productId"
             element={<ProductDetailPage />}
           />
+          <Route path="/orders" element={<OrdersPage />} />
+          <Route path="/orders/:orderId" element={<OrderDetailPage />} />
+          <Route path="/checkout-success" element={<CheckoutSuccess />} />
         </Routes>
       </Layout>
       <Footer />

@@ -156,7 +156,7 @@ const ProductDetail = (props) => {
             </div>
           </Col>
         </Row>
-        <Tabs description={product.description} />
+        <Tabs description={product.description} productId={productId}/>
       </Container>
     </section>
   );

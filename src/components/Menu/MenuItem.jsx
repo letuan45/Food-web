@@ -8,7 +8,7 @@ const SubItem = (props) => {
       <div className={classes.image}>
         <img src={props.item.image} alt="hình ảnh sản phẩm" />
       </div>
-      <div className="w-100 d-flex flex-column" style={{marginLeft: "20px"}}>
+      <div className="w-100 d-flex flex-column" style={{ marginLeft: "20px" }}>
         <div
           className="d-flex justify-content-between align-items-center"
           style={{
@@ -19,7 +19,7 @@ const SubItem = (props) => {
           <h5 className={classes.name}>{props.item.name}</h5>
           <span className={classes.price}>{price} VND</span>
         </div>
-        <div className={classes.ingre}>{props.item.ingredients}</div>
+        <div className={classes.ingre}>{props.item.ingredient}</div>
       </div>
     </li>
   );
@@ -33,9 +33,12 @@ const MenuItem = (props) => {
   return (
     <div className={classes.item}>
       <h3 className={classes.header}>{props.type}:</h3>
-      <ul className="d-flex flex-column" style={{ marginTop: "10px" }}>
+      <ul
+        className="d-flex flex-column"
+        style={{ marginTop: "10px" }}
+      >
         {foods.map((food, idx) => (
-          <SubItem item={food} key={idx}/>
+          <SubItem item={food} key={idx} />
         ))}
       </ul>
     </div>

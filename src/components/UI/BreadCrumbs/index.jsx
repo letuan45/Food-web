@@ -53,6 +53,15 @@ const index = (props) => {
     ];
   }
 
+  if (props.ordersBreadcrumbs) {
+    breadcrumbs = [
+      {
+        title: "Đơn hàng",
+        link: "/orders",
+      },
+    ];
+  }
+
   if (props.breadcrumbAddition) {
     breadcrumbs.push(props.breadcrumbAddition);
   }

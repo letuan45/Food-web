@@ -1,0 +1,34 @@
+.item {
+  display: flex;
+  background-color: var(--fade-yellow);
+  padding: 20px;
+  border-radius: 22px;
+  box-shadow: 0px 0px 39px -30px rgba(0, 0, 0, 0.75);
+  border: 2px dashed var(--grey);
+  justify-content: space-around;  
+}
+
+.avatar {
+  background-color: var(--primary-dark);
+  border-radius: 12px;
+}
+
+.avatar svg {
+  width: 100px;
+  height: 100px;
+  color: white;
+}
+
+.info_list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.info-item {
+  font-weight: 600;
+}
+
+.info-item span {
+  font-weight: normal;
+}

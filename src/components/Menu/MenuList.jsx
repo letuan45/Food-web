@@ -6,6 +6,8 @@ import classes from "./MenuList.module.css";
 import MenuItem from "./MenuItem";
 
 import menuBg from "../../assets/images/backgrounds/menu_bg.jpg";
+import useAxios from "../../hooks/useAxios";
+import httpClient from "../../utils/axiosInstance";
 
 //This component has 4 array, each array preresent a category
 const DUMMY_MENU = [
@@ -128,6 +130,33 @@ const DUMMY_MENU = [
 ];
 
 const MenuList = () => {
+  const URL = "/items/category";
+  const { response, error } = useAxios({
+    axiosInstance: httpClient,
+    method: "GET",
+    url: URL,
+  });
+
+  const PRODUCTS = response ? response : null;
+  let products = {};
+  if (PRODUCTS) {
+    for (let product of PRODUCTS) {
+      if (!products[[product["name_type"]]]) {
+        products[[product["name_type"]]] = [];
+      }
+      products[[product["name_type"]]].push(product);
+    }
+  }
+
+  let content;
+  if (Object.keys(products).length > 0) {
+    content = Object.keys(products)
+      .map((key) => {
+        return { items: products[key], type: key };
+      })
+      .slice(0, 4);
+  }
+
   return (
     <section
       className="menu"
@@ -138,16 +167,18 @@ const MenuList = () => {
       }}
     >
       <Container>
+        {error && <p>{error.data.message}</p>}
         <div className={classes["section-header"]}>
           <h1>Menu theo loại</h1>
           <h2>Các món ăn tiêu biểu</h2>
         </div>
         <Row>
-          {DUMMY_MENU.map((item, idx) => (
-            <Col lg={6} style={{ padding: "12px" }} key={idx}>
-              <MenuItem items={item.items} type={item.type} />
-            </Col>
-          ))}
+          {content &&
+            content.map((item, index) => (
+              <Col lg={6} style={{ padding: "12px" }} key={index}>
+                <MenuItem items={item.items} type={item.type} />
+              </Col>
+            ))}
         </Row>
       </Container>
     </section>

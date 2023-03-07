@@ -1,0 +1,30 @@
+.table {
+  border: 2px dashed var(--primary-dark);
+  margin: 0;
+  background-color: white;
+}
+
+.table td {
+  border: 1px solid var(--primary-dark);
+}
+
+.table .order-item {
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.table .order-item:hover td {
+  background-color: var(--primary);
+}
+
+.header {
+  color: var(--green);
+}
+
+.reviewed {
+    color: var(--green);
+}
+
+.not-reviewed {
+    color: var(--red);
+}

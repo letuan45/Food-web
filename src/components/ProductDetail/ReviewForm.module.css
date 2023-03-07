@@ -15,12 +15,37 @@
 }
 
 .form-warn {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   margin-bottom: 20px;
   font-style: italic;
   color: var(--grey);
 }
 
+.form-warn_2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  font-style: italic;
+  color: var(--text);
+}
+
 .form-warn span {
   color: var(--red);
+}
+
+.btn-wrapper {
+  margin-top: 20px;
+  width: 50%;
+}
+
+.btn-wrapper button {
+  height: 60px;
+}
+
+.btn-wrapper button svg {
+  color: white;
+}
+
+.product_name {
+  font-weight: 600;
+  color: var(--primary-dark);
 }

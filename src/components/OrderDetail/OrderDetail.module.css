@@ -1,0 +1,81 @@
+.header {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.header svg {
+  color: var(--primary);
+  margin-right: 8px;
+}
+
+.order-infor {
+  border-radius: 12px;
+  background-color: #f0f0f0;
+  padding: 30px 25px;
+  margin-top: 20px;
+}
+
+.infor-list {
+  font-size: 1rem;
+}
+
+.infor-list .info-item {
+  margin: 6px 0;
+  font-weight: 600;
+  line-height: 1.1rem;
+}
+
+.infor-list .info-item span {
+  font-weight: normal;
+}
+
+.empty {
+  font-size: 1.4rem;
+  color: var(--grey-dark);
+  text-align: center;
+}
+
+.control {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 2px dashed var(--grey-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.total-price {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gree);
+}
+
+.total-price span {
+  color: var(--primary-dark);
+}
+
+.status {
+  font-size: 0.9rem;
+  padding: 4px 6px;
+  border-radius: 12px;
+  color: white;
+}
+
+.status.green {
+  background-color: var(--green);
+}
+
+.status.yellow {
+  background-color: var(--primary-dark);
+}
+
+.status.red {
+  background-color: var(--red);
+}
+
+.table-header {
+    font-style: italic;
+    color: var(--grey-dark);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}

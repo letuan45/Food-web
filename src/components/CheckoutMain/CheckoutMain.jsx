@@ -6,32 +6,67 @@ import classes from "./CheckoutMain.module.css";
 import TextArea from "../UI/Input/TextArea";
 import Button from "../UI/Button";
 import BorderedButton from "../UI/Button/BorderedButton";
+import LoadingSpinner from "../../components/UI/LoadingSpinner/LoadingSpinner";
+import { toastAction, cartActions} from "../../store";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { useSelector } from "react-redux";
-import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import httpClient from "../../utils/axiosInstance";
 import useAxios from "../../hooks/useAxios";
+import useAxiosFunction from "../../hooks/useAxiosFunction";
+import EmptyCart from "../../components/UI/EmptyCart";
 
 const CheckoutMain = () => {
-  const [paymentMethod, setPaymentMethod] = useState("cod");
-  const [paymentList, setPaymentList] = useState([])
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [paymentMethod, setPaymentMethod] = useState(1);
+  const [paymentList, setPaymentList] = useState([]);
   const descriptionRef = useRef();
   const user = useSelector((state) => state.auth.user);
   const cartItems = useSelector((state) => state.cart.items);
   const getPaymentMethodURL = "/payment_methods";
+  const checkoutURL = "/cart/checkout";
+  const {
+    response: checkoutResponse,
+    error: checkoutError,
+    loading: checkoutIsLoading,
+    axiosFetch: callCheckout,
+  } = useAxiosFunction();
 
-  const {response: paymentsResponse} = useAxios({
+  const { response: paymentsResponse } = useAxios({
     axiosInstance: httpClient,
     method: "GET",
-    url: getPaymentMethodURL
+    url: getPaymentMethodURL,
   });
 
   useEffect(() => {
-    console.log(paymentsResponse);
     setPaymentList(paymentsResponse);
-  },[paymentsResponse]);
+  }, [paymentsResponse]);
+
+  useEffect(() => {
+    if (checkoutError) {
+      dispatch(
+        toastAction.showToast({
+          message: checkoutError.data.message,
+          type: "error",
+        })
+      );
+      return;
+    }
+    if (checkoutResponse) {
+      dispatch(
+        toastAction.showToast({
+          message: checkoutResponse.message,
+          type: "success",
+        })
+      );
+      dispatch(cartActions.clearCart());
+      navigate("/checkout-success");
+    }
+  }, [checkoutError, checkoutResponse, dispatch, navigate]);
 
   if (!user) {
     return (
@@ -44,21 +79,30 @@ const CheckoutMain = () => {
 
   if (cartItems.length === 0) {
     return (
-      <p className={classes.notify}>
-        <RemoveShoppingCartIcon />
-        Giỏ hàng của bạn đang trống!
-      </p>
+      <div style={{padding: "80px 0"}}>
+        <EmptyCart />
+      </div>
     );
   }
 
-  const handlePaymentChange = (event) => {
-    setPaymentMethod(event.target.value);
-    console.log(paymentMethod);
+  const handlePaymentChange = (methodId) => {
+    setPaymentMethod(methodId);
   };
 
   const handleSubmitCheckout = (event) => {
     event.preventDefault();
-    console.log(paymentMethod, descriptionRef.current.value);
+
+    callCheckout({
+      axiosInstance: httpClient,
+      method: "POST",
+      url: checkoutURL,
+      requestConfig: {
+        data: {
+          id_payment: +paymentMethod,
+          description: descriptionRef.current.value,
+        },
+      },
+    });
   };
 
   return (
@@ -87,43 +131,25 @@ const CheckoutMain = () => {
           <div className={classes["payment-wrapper"]}>
             <h1 className={classes.header}>Thông tin đơn hàng</h1>
             <h3 className={classes["inner-header"]}>Phương thức thanh toán</h3>
-            {paymentList && paymentList.map((item, index) => (
-              <RadioInput
-                key={index}
-                label={item.name}
-                value={item["id_payment"]}
-                onChange={handlePaymentChange}
-                name="payment"
-                defaultChecked
-              />
-            ))}
-
-            {/* <RadioInput
-              label="COD (thanh toán khi nhận hàng)"
-              value="cod"
-              onChange={handlePaymentChange}
-              name="payment"
-              defaultChecked
-            />
-            <RadioInput
-              label="Thanh toán ví điện tử"
-              value="e-bank"
-              name="payment"
-              onChange={handlePaymentChange}
-            />
-            <RadioInput
-              label="Thanh toán bằng thẻ ghi nợ"
-              value="credit"
-              name="payment"
-              onChange={handlePaymentChange}
-            /> */}
+            {paymentList &&
+              paymentList.map((item, index) => (
+                <RadioInput
+                  key={index}
+                  label={item.name}
+                  value={item["id_payment"]}
+                  onChange={handlePaymentChange}
+                  name="payment"
+                />
+              ))}
           </div>
           <div>
             <h3 className={classes["inner-header"]}>Ghi chú cho chúng tôi</h3>
             <TextArea ref={descriptionRef} />
           </div>
           <div className={classes["button-group"]}>
-            <Button type="submit">Đặt hàng</Button>
+            <Button type="submit">
+              {checkoutIsLoading ? <LoadingSpinner /> : "Đặt hàng"}
+            </Button>
             <Link to="/cart">
               <BorderedButton>Kiểm tra giỏ hàng</BorderedButton>
             </Link>

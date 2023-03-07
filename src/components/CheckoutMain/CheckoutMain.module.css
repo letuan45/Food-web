@@ -31,7 +31,12 @@
 .button-group button {
   display: block;
   margin: 20px 0;
+  height: 70px;
   width: 350px;
+}
+
+.button-group button svg {
+  color: white;
 }
 
 .notify {

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import classes from "./CartList.module.css";
 import Button from "../../components/UI/Button";
 import { useSelector } from "react-redux";
+import { Fragment } from "react";
 
 const CartList = () => {
   const items = useSelector((state) => state.cart.items);
@@ -21,14 +22,14 @@ const CartList = () => {
 
   let content;
   if (!items || items.length === 0) content = <EmptyCart />;
-
-  content = (
-    <ul>
-      {items.map((item) => (
-        <CartItem item={item} key={item["id_item"]} />
-      ))}
-    </ul>
-  );
+  else
+    content = (
+      <ul>
+        {items.map((item) => (
+          <CartItem item={item} key={item["id_item"]} />
+        ))}
+      </ul>
+    );
 
   const totalPrice = items.reduce(
     (totalPrice, item) => totalPrice + item.price * item.amount,
@@ -40,15 +41,19 @@ const CartList = () => {
     <section className="cart-list" style={{ padding: "80px 0" }}>
       <Container fluid="md">
         {content}
-        <div className={classes["grand-total"]}>
-          TỔNG GIÁ: <span>{totalDisplayPrice} VND</span>
-        </div>
-        <Link
-          to="/checkout"
-          style={{ width: "250px", display: "block", marginTop: "20px" }}
-        >
-          <Button>Thanh toán</Button>
-        </Link>
+        {items.length > 0 && (
+          <Fragment>
+            <div className={classes["grand-total"]}>
+              TỔNG GIÁ: <span>{totalDisplayPrice} VND</span>
+            </div>
+            <Link
+              to="/checkout"
+              style={{ width: "250px", display: "block", marginTop: "20px" }}
+            >
+              <Button>Thanh toán</Button>
+            </Link>
+          </Fragment>
+        )}
       </Container>
     </section>
   );
