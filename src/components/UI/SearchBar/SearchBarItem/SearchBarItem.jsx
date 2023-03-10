@@ -8,7 +8,11 @@ const SearchBarItem = (props) => {
 
   return (
     <li className={classes.item}>
-      <Link to={itemURL} className={classes["item-wrapper"]}>
+      <Link
+        to={itemURL}
+        className={classes["item-wrapper"]}
+        onClick={props.onClick}
+      >
         <img src={item.image} alt="hinh san pham" />
         <div className={classes["item-info"]}>
           <p className={classes["product-name"]}>{item.name}</p>

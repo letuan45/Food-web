@@ -75,6 +75,7 @@ const OrderList = (props) => {
         </div>
       );
     } else {
+      console.log(ordersResponse);
       content = (
         <Table className={classes.table}>
           <thead className={classes["table-header"]}>

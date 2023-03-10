@@ -11,6 +11,7 @@ const SearchBar = (props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchedItems, setSearchedItems] = useState([]);
+  const [searchItemIsHidden, setSearchItemIsHidden] = useState(false);
   const getItemsURL = "/items";
   const navigate = useNavigate();
   const {
@@ -52,14 +53,19 @@ const SearchBar = (props) => {
 
   useEffect(() => {
     if (isFocused === false) {
-      console.log(isFocused);
-      setSearchedItems([]);
-      return;
+      setSearchItemIsHidden(true);
+    } else {
+      setSearchItemIsHidden(false);
     }
+
     if (searchRes) {
       setSearchedItems(searchRes.itemList.slice(0, 5));
     }
   }, [searchRes, isFocused]);
+
+  const handleOnClickSearchList = () => {
+    setSearchItemIsHidden(false);
+  };
 
   return (
     <form onSubmit={handleSubmit} className={classes["control-form"]}>
@@ -77,7 +83,11 @@ const SearchBar = (props) => {
       <button type="submit">
         {searchIsLoading ? <LoadingSpinner /> : <SearchIcon />}
       </button>
-      <SearchList items={searchedItems} />
+      <SearchList
+        items={searchedItems}
+        onClick={handleOnClickSearchList}
+        isHidden={searchItemIsHidden}
+      />
     </form>
   );
 };

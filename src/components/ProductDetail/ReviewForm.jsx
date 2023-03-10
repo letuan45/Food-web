@@ -48,7 +48,6 @@ const ReviewForm = (props) => {
   }, [reviewResponse, reviewError, dispatch, navigate, orderId]);
 
   const handleOnSubmit = (event) => {
-    console.log(product);
     event.preventDefault();
     if (!product) {
       dispatch(
@@ -76,7 +75,10 @@ const ReviewForm = (props) => {
       requestConfig: {
         data: {
           rating: ratingValue,
-          comment: comment
+          comment: comment,
+        },
+        params: {
+          id_order: orderId
         },
       },
     });

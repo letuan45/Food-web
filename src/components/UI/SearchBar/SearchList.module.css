@@ -6,3 +6,8 @@
   background-color: white;
   padding: 10px;
 }
+
+.search-list.hidden {
+  opacity: 0;
+  visibility: hidden;
+}

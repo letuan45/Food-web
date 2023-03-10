@@ -93,7 +93,18 @@ const Content = (props) => {
 };
 
 const Categories = (props) => {
-  const { bestProduct, isModal, isOpened, onClose } = props;
+  const URL = "items/get";
+  const { isModal, isOpened, onClose } = props;
+  const { response: bestProduct, error: bestProductError } = useAxios({
+    axiosInstance: httpClient,
+    method: "get",
+    url: URL,
+    requestConfig: {
+      params: {
+        quantity: 3,
+      },
+    },
+  });
 
   let bestDealContent = (
     <p className={classes["empty-best"]}>
@@ -102,12 +113,19 @@ const Categories = (props) => {
     </p>
   );
 
-  if (bestProduct && bestProduct.length > 0) {
+  if (bestProductError) {
+    bestDealContent = (
+      <p className={classes["empty-best"]}>
+        <RemoveShoppingCartIcon />
+        Lỗi không lấy được danh sách
+      </p>
+    );
+  } else if (bestProduct && bestProduct.length > 0) {
     bestDealContent = (
       <ul className={classes["best-deal-list"]}>
         {bestProduct.map((item) => (
           <FoodItemVertical
-            key={item.id}
+            key={item["id_item"]}
             item={item}
             style={{ margin: "10px 0" }}
           />

@@ -132,7 +132,7 @@ const OrderDetail = () => {
                 />
               </div>
             </Col>
-            {(orderStatus !== 2 || orderStatus !== 1) && (
+            {(orderStatus !== 2 && orderStatus !== 1) && (
               <Col lg={12}>
                 <div className={classes["order-infor"]}>
                   <ReviewForm product={reviewProduct} orderId={orderId} />

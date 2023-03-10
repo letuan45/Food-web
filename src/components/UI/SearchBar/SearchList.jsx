@@ -3,10 +3,24 @@ import classes from "./SearchList.module.css";
 
 const SearchList = (props) => {
   const { items } = props;
-  
-  return <ul className={classes["search-list"]}>
-    {items.map(item => <SearchBarItem item={item} key={item["id_item"]}/>)}
-  </ul>;
+
+  if (items.length === 0) return;
+
+  return (
+    <ul
+      className={`${classes["search-list"]} ${
+        props.isHidden ? classes.hidden : ""
+      }`}
+    >
+      {items.map((item) => (
+        <SearchBarItem
+          item={item}
+          key={item["id_item"]}
+          onClick={props.onClick}
+        />
+      ))}
+    </ul>
+  );
 };
 
 export default SearchList;

@@ -19,36 +19,6 @@ import { useParams } from "react-router";
 import { useNavigate, useLocation } from "react-router-dom";
 import useWishlistTransform from "../../hooks/useWishlistTransform";
 
-const DUMMY_BEST = [
-  {
-    id: 1,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 0,
-    name: "Tên món ăn",
-    description: "Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 2,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 3.5,
-    name: "Tên món ăn",
-    description: "Mô tả món ăn",
-    price: "60000",
-  },
-  {
-    id: 3,
-    image:
-      "https://demo2.pavothemes.com/poco/wp-content/uploads/2020/08/53-1-600x600.png",
-    rating: 4.5,
-    name: "Tên món ăn",
-    description: "Mô tả món ăn",
-    price: "60000",
-  },
-];
-
 const ShopPageMain = () => {
   const [orderType, setOrderType] = useState(0);
   const [cateIsOpen, setCateIsOpen] = useState(false);
@@ -56,7 +26,7 @@ const ShopPageMain = () => {
   const { width: deviceWidth } = useViewport();
   let getItemsURL = "/items";
   const { pageNum } = useParams();
-  getItemsURL += pageNum ? `/${pageNum}` : "";
+  getItemsURL += pageNum ? `/page/${pageNum}` : "";
   const { idType } = useParams();
   const { typeSort } = useParams();
   const { searchValue } = useParams();
@@ -229,7 +199,6 @@ const ShopPageMain = () => {
               </div>
             </Col>
             <Categories
-              bestProduct={DUMMY_BEST}
               isModal={deviceWidth <= 1200}
               isOpened={cateIsOpen}
               onClose={handleCloseCate}

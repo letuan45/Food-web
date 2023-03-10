@@ -7,7 +7,7 @@ const FoodItemVertical = (props) => {
   const { item } = props;
   const { style } = props;
   const price = Number(item.price).toLocaleString("en");
-  const link = `/product/${item.id}`;
+  const link = `/items/detail/${item["id_item"]}`;
 
   return (
     <li style={style} className={classes.item}>
