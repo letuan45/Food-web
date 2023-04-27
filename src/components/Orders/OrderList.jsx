@@ -31,7 +31,7 @@ const StatusItem = (props) => {
 
 const OrderList = (props) => {
   const getOrdersURL = "/orders";
-  const { changeLength } = props;
+  const { changeLength, onChangeTotalPayment } = props;
 
   const hanndleChangeSummary = useCallback(
     (orders) => {
@@ -50,13 +50,22 @@ const OrderList = (props) => {
     url: getOrdersURL,
   });
 
+  
+
   let content;
 
   useEffect(() => {
     if (ordersResponse) {
       hanndleChangeSummary(ordersResponse);
+      const totalPayment = ordersResponse.reduce((acc, item) => {
+        if (item.status === 1) {
+          return item.total + acc;
+        }
+        return 0 + acc;
+      }, 0);
+      onChangeTotalPayment(totalPayment);
     }
-  }, [ordersResponse, hanndleChangeSummary]);
+  }, [ordersResponse, hanndleChangeSummary, onChangeTotalPayment]);
 
   if (orderIsLoading) {
     content = (
@@ -75,7 +84,6 @@ const OrderList = (props) => {
         </div>
       );
     } else {
-      console.log(ordersResponse);
       content = (
         <Table className={classes.table}>
           <thead className={classes["table-header"]}>

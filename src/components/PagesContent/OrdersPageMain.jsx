@@ -10,15 +10,20 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import orangeBg from "../../assets/images/backgrounds/orange.png";
 import greenBg from "../../assets/images/backgrounds/green.jpg";
 import OrderList from "../Orders/OrderList";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const OrdersPageMain = () => {
   const user = useSelector((state) => state.auth.user);
   const [totalLength, setTotalLength] = useState(0);
+  const [totalPayment, setTotalPayment] = useState("0");
 
   const changeTotalLengthHandler = (value) => {
     setTotalLength(value);
   };
+
+  const handleChangeTotalPayment = useCallback((value) => {
+    setTotalPayment(Number(value).toLocaleString("en"));
+  }, []);
 
   if (!user) {
     return (
@@ -65,12 +70,15 @@ const OrdersPageMain = () => {
                 }}
               >
                 <PaymentsIcon />
-                <p>Tổng chi: 1,200,000 VND</p>
+                <p>Tổng chi: {totalPayment} VND</p>
               </Col>
             </Row>
           </Col>
         </Row>
-        <OrderList changeLength={changeTotalLengthHandler} />
+        <OrderList
+          changeLength={changeTotalLengthHandler}
+          onChangeTotalPayment={handleChangeTotalPayment}
+        />
       </Container>
     </div>
   );
