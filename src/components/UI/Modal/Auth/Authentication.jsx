@@ -29,9 +29,6 @@ const validateLogin = (values) => {
   if (!values.password || values.password.trim().length === 0) {
     errors.password = "Xin hãy nhập mật khẩu !";
   }
-  // } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password)) {
-  //   errors.password = "Mật khẩu không hợp lệ !";
-  // }
 
   return errors;
 };
@@ -40,8 +37,8 @@ const loginURL = "/account/login";
 
 const LoginForm = (props) => {
   const dispatch = useDispatch();
-  const {loginHandler} = useAuth();
-  const {onClose} = props;
+  const { loginHandler } = useAuth();
+  const { onClose } = props;
 
   const {
     response: loginResponse,
@@ -84,7 +81,9 @@ const LoginForm = (props) => {
       const { userInfo: user, expireTime } = loginResponse;
       //Tính thời gian expired
       const expireTimeData = new Date(new Date().getTime() + expireTime * 1000);
-      loginHandler(loginResponse.token, expireTimeData.toISOString(), { ...user });
+      loginHandler(loginResponse.token, expireTimeData.toISOString(), {
+        ...user,
+      });
       onClose();
     }
     if (loginError) {
@@ -95,8 +94,6 @@ const LoginForm = (props) => {
         })
       );
     }
-
-
   }, [loginResponse, dispatch, loginError, loginHandler, onClose]);
 
   return (
@@ -130,6 +127,7 @@ const LoginForm = (props) => {
             : null
         }
       />
+      <NavLink to="/forget-pass" className={classes.forget}>Quên mật khẩu?</NavLink>
       <div className={classes.switch}>
         <p>Không có tài khoản ? Chuyển sang Đăng ký</p>
         <NavLink to="/register" onClick={props.onClose}>

@@ -145,6 +145,7 @@
 .user-infor {
   padding-bottom: 10px;
   border-bottom: 2px dashed var(--grey-dark);
+  margin-bottom: 10px;
 }
 
 .user-infor__item {
@@ -177,6 +178,11 @@
 .auth-btn-group:hover .user-infor-wrapper{
   opacity: 1;
   visibility: visible;
+}
+
+.change-pass-btn {
+  margin: 10;
+  display: block;
 }
 
 @media (max-width: 1200px) {

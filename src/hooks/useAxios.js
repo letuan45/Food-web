@@ -15,7 +15,6 @@ const useAxios = (configObj) => {
     setReload((prev) => prev + 1);
   }, []);
 
-
   useEffect(() => {
     const controller = new AbortController(); //dùng đến khi cần dừng 1 request
     const token = localStorage.getItem("token");    

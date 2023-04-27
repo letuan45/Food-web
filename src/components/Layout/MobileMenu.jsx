@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
 import { useLocation } from "react-router";
@@ -51,7 +51,7 @@ const Element = (props) => {
 
     //Cập nhật redux State
     logoutHandler();
-  }
+  };
 
   useEffect(() => {
     if (logoutResponse) {
@@ -93,10 +93,20 @@ const Element = (props) => {
           </p>
           <button
             className={classes["login-btn"]}
-            onClick={handleLogout}
-            style={{ marginTop: "10px", height: "50px"}}
+            onClick={() => {
+              props.onOpenChangePass();
+              onClose();
+            }}
+            style={{ marginTop: "10px", height: "50px" }}
           >
-            {logoutIsLoading ? <LoadingSpinner/> : "Đăng xuất"}
+            Đổi mật khẩu
+          </button>
+          <button
+            className={classes["login-btn"]}
+            onClick={handleLogout}
+            style={{ marginTop: "10px", height: "50px" }}
+          >
+            {logoutIsLoading ? <LoadingSpinner /> : "Đăng xuất"}
           </button>
         </li>
         <li className={classes["menu-item"]}>
@@ -194,6 +204,7 @@ const MobileMenu = (props) => {
           onClose={props.onClose}
           isOpen={props.isOpen}
           openAuth={props.openAuth}
+          onOpenChangePass={props.onOpenChangePass}
         />,
         document.getElementById("overlay-root")
       )}

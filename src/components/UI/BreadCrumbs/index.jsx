@@ -13,7 +13,7 @@ const index = (props) => {
   let breadcrumbs = [
     {
       title: "Thực đơn",
-      link: "/shop",
+      link: "/items",
     },
   ];
 
@@ -58,6 +58,15 @@ const index = (props) => {
       {
         title: "Đơn hàng",
         link: "/orders",
+      },
+    ];
+  }
+
+  if (props.forgetPassBreadcrumbs) {
+    breadcrumbs = [
+      {
+        title: "Quên mật khẩu",
+        link: "/forget-pass",
       },
     ];
   }

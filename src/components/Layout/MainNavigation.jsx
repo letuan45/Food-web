@@ -27,12 +27,14 @@ import { toastAction } from "../../store";
 import { cartActions } from "../../store";
 import { wishListActions } from "../../store";
 import { useNavigate } from "react-router-dom";
+import ChangePassword from "../UI/Modal/ChangePassword/ChangePassword";
 
 const MainNavigation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [authenticationIsOpen, setAuthenticationIsOpen] = useState(false);
   const [cartIsOpen, setCartIsOpen] = useState(false);
+  const [changePassIsOpen, setChangePassIsOpen] = useState(false);
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const cart = useSelector((state) => state.cart.items);
@@ -90,10 +92,20 @@ const MainNavigation = () => {
     setMobileMenuIsOpen(false);
   }, []);
 
+  //ForgetPass
+  const openChangePassHandler = () => {
+    setChangePassIsOpen(true);
+  };
+
+  const closeChangePassHandler = useCallback(() => {
+    setChangePassIsOpen(false);
+  }, []);
+
   const closeBackdrop = () => {
     if (authenticationIsOpen) setAuthenticationIsOpen(false);
     else if (cartIsOpen) setCartIsOpen(false);
     else if (mobileMenuIsOpen) setMobileMenuIsOpen(false);
+    else if (changePassIsOpen) setChangePassIsOpen(false);
   };
 
   const handleLogout = (event) => {
@@ -120,7 +132,7 @@ const MainNavigation = () => {
         })
       );
       navigate("/");
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     }
     if (logoutError) {
       dispatch(
@@ -190,14 +202,14 @@ const MainNavigation = () => {
   }, [wishListResponse, wishListError, dispatch, user]);
 
   let cartLength = 0;
-  if(cart) {
+  if (cart) {
     cartLength = cart.reduce((acc, item) => acc + item.amount, 0);
   }
 
   return (
     <div className={classes.menu}>
       {/* Render modal */}
-      {authenticationIsOpen || cartIsOpen ? (
+      {authenticationIsOpen || cartIsOpen || changePassIsOpen ? (
         <Backdrop onClose={closeBackdrop} />
       ) : null}
       <Authentication
@@ -207,6 +219,10 @@ const MainNavigation = () => {
       <SideCart
         className={cartIsOpen ? "open" : ""}
         onClose={closeCartHandler}
+      />
+      <ChangePassword
+        className={changePassIsOpen ? "open" : ""}
+        onClose={closeChangePassHandler}
       />
 
       <Container className={classes["main-menu"]}>
@@ -293,6 +309,9 @@ const MainNavigation = () => {
                         Địa chỉ: <span>{user.address}</span>
                       </li>
                     </ul>
+                    <Button onClick={openChangePassHandler}>
+                      Đổi mật khẩu
+                    </Button>
                     <Link
                       to="/logout"
                       className={`${classes["logout-wrapper"]} ${
@@ -338,6 +357,7 @@ const MainNavigation = () => {
             onClose={closeMobileMenuHandler}
             isOpen={mobileMenuIsOpen}
             openAuth={openAuthHandler}
+            onOpenChangePass={openChangePassHandler}
           />
         </div>
       </Container>

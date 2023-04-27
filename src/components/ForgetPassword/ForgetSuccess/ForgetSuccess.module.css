@@ -1,0 +1,30 @@
+.container {
+  width: 100%;
+  text-align: center;
+  font-size: 1.1rem;
+  border: 2px dashed var(--grey-border);
+  border-radius: 12px;
+  padding: 20px 22px;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--green);
+}
+
+.done-image {
+  width: 60%;
+  height: 60%;
+  margin: 20px auto;
+  display: block;
+}
+
+.btn-group {
+  height: 50px;
+}
+
+.btn-group button{
+  height: 100%;
+}

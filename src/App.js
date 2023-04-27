@@ -15,6 +15,8 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import OrdersPage from "./pages/OrdersPage";
 import OrderDetailPage from "./pages/OrderDetailPage";
 import CheckoutSuccess from "./components/PagesContent/CheckoutSuccess";
+import ChangePassword from "./components/UI/Modal/ChangePassword/ChangePassword";
+import ForgetPassPage from "./pages/ForgetPassPage";
 
 function App() {
   const { pathname } = useLocation();
@@ -73,6 +75,7 @@ function App() {
           <Route path="/orders" element={<OrdersPage />} />
           <Route path="/orders/:orderId" element={<OrderDetailPage />} />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
+          <Route path="/forget-pass" element={<ForgetPassPage />} />
         </Routes>
       </Layout>
       <Footer />

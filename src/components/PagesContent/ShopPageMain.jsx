@@ -95,6 +95,7 @@ const ShopPageMain = () => {
       </p>
     );
   } else if (!productsError && PRODUCTS && PRODUCTS.length > 0) {
+    console.log(PRODUCTS);
     productsContent = (
       <ul className={`${classes["product-list"]} row`}>
         {PRODUCTS.map((item) => (

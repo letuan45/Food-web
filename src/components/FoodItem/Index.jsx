@@ -10,7 +10,7 @@ import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 //hooks
 import { useDispatch, useSelector } from "react-redux";
-import { toastAction, cartActions} from "../../store";
+import { toastAction, cartActions } from "../../store";
 import useAxiosFunction from "../../hooks/useAxiosFunction";
 import httpClient from "../../utils/axiosInstance";
 
@@ -26,7 +26,7 @@ const Index = (props) => {
     response: addToCartResponse,
     error: addToCartError,
     axiosFetch: addToCart,
-    loading: isLoadingAddToCart
+    loading: isLoadingAddToCart,
   } = useAxiosFunction();
 
   const addToCartHandler = (event) => {
@@ -43,8 +43,8 @@ const Index = (props) => {
     addToCart({
       axiosInstance: httpClient,
       method: "POST",
-      url: addToCartURL
-    })
+      url: addToCartURL,
+    });
   };
 
   useEffect(() => {
