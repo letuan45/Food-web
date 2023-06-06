@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const httpClient = axios.create({
-  baseURL: "http://localhost:3005",
+  baseURL: "https://be-fastfood-production.up.railway.app",
   headers: {
     "Content-Type": "application/json",
-    "Accept": "application/json",
+    Accept: "application/json",
   },
 });
 
