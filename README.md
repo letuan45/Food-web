@@ -17,6 +17,5 @@ Thư viện sử dụng: React Native, Bootstrap, MaterialUI, Formik, React Para
 # Hướng dẫn chạy đồ án
 + Trước tiên cần tải và start đồ án Back-end của nhóm
 + Chạy đồ án bằng lệnh npm start
-=======
+
 Thư viện sử dụng: ReactJS, Bootstrap, MaterialUI, Formik, React Parallax, Axios, Redux
->>>>>>> c82b03aa99c169480977bb85e3ffa711a88dfda5
