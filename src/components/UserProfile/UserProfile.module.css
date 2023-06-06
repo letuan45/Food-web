@@ -11,15 +11,18 @@
 .avatar {
   background-color: var(--primary-dark);
   border-radius: 12px;
+  height: fit-content;
+  margin: auto 0;
 }
 
 .avatar svg {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   color: white;
 }
 
 .info_list {
+  padding-left: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

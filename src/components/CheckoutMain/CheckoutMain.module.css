@@ -30,9 +30,9 @@
 .button-group a,
 .button-group button {
   display: block;
-  margin: 20px 0;
+  margin: 20px auto;
   height: 70px;
-  width: 350px;
+  width: 320px;
 }
 
 .button-group button svg {

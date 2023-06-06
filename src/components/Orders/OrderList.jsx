@@ -14,14 +14,14 @@ const StatusItem = (props) => {
   if (status === 0) {
     return (
       <span className={`${classes.status} ${classes.yellow}`}>
-        Chưa xác nhận
+        Chờ X.N
       </span>
     );
   }
 
   if (status === 1) {
     return (
-      <span className={`${classes.status} ${classes.green}`}>Đã xác nhận</span>
+      <span className={`${classes.status} ${classes.green}`}>Đã X.Nhận</span>
     );
   }
 

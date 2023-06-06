@@ -12,3 +12,7 @@
 + LandingPage Parallax Effect
 <br/>
 Thư viện sử dụng: React Native, Bootstrap, MaterialUI, Formik, React Parallax, Axios, Redux
+<br/>
+# Hướng dẫn chạy đồ án
++ Trước tiên cần tải và start đồ án Back-end của nhóm
++ Chạy đồ án bằng lệnh npm start

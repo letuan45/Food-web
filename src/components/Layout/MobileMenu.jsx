@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
 import { useLocation } from "react-router";
@@ -151,7 +151,7 @@ const Element = (props) => {
         </li>
         <li className={classes["menu-item"]}>
           <NavLink
-            to="/shop"
+            to="/items"
             className={(props) => (props.isActive ? classes.active : "")}
           >
             Thực đơn
@@ -167,10 +167,10 @@ const Element = (props) => {
         </li>
         <li className={classes["menu-item"]}>
           <NavLink
-            to="/book-table"
+            to="/orders"
             className={(props) => (props.isActive ? classes.active : "")}
           >
-            Đặt bàn
+            Hóa đơn
           </NavLink>
         </li>
         <li className={classes["menu-item"]}>

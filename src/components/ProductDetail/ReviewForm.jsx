@@ -43,7 +43,7 @@ const ReviewForm = (props) => {
           type: "success",
         })
       );
-      navigate(`/order/${orderId}`);
+      navigate(`/orders/${orderId}`);
     }
   }, [reviewResponse, reviewError, dispatch, navigate, orderId]);
 

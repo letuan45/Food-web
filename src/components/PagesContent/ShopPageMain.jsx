@@ -95,7 +95,6 @@ const ShopPageMain = () => {
       </p>
     );
   } else if (!productsError && PRODUCTS && PRODUCTS.length > 0) {
-    console.log(PRODUCTS);
     productsContent = (
       <ul className={`${classes["product-list"]} row`}>
         {PRODUCTS.map((item) => (
@@ -116,7 +115,10 @@ const ShopPageMain = () => {
 
   const handleChangeType = (newValue) => {
     setOrderType(() => newValue);
-    if (+newValue === 0) return;
+    if (+newValue === 0) {
+      navigate("/items");
+      return;
+    };
     let currenPath = location.pathname;
     let currenPathArr = currenPath.split("/");
 
